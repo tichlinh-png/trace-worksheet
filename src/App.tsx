@@ -10,7 +10,7 @@ export default function TracingWorksheetGenerator() {
   ]);
   const [schoolName, setSchoolName] = useState('');
   const [schoolLogo, setSchoolLogo] = useState(null);
-  const [wordsPerPage, setWordsPerPage] = useState(2);
+  const wordsPerPage = 2;
   const [repeatCount, setRepeatCount] = useState(12);
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
@@ -115,6 +115,7 @@ export default function TracingWorksheetGenerator() {
       flex-direction: column;
       background: white;
       position: relative;
+      overflow: hidden;
     }
 
     .page:last-child {
@@ -187,18 +188,23 @@ export default function TracingWorksheetGenerator() {
       flex-direction: column;
       justify-content: center;
       border-bottom: 2px solid #000;
-      padding: 12px 0;
+      padding: 0;
       margin-bottom: 0;
+    }
+
+    .word-block:first-of-type {
+      padding-top: 8px;
     }
 
     .word-block:last-child {
       border-bottom: none;
+      padding-bottom: 8px;
     }
 
     .image-container {
       text-align: center;
-      margin-bottom: 12px;
-      min-height: ${wordsPerPage === 2 ? '140px' : '110px'};
+      margin-bottom: 8px;
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -206,7 +212,7 @@ export default function TracingWorksheetGenerator() {
 
     .worksheet-image {
       max-width: 95%;
-      max-height: ${wordsPerPage === 2 ? '140px' : '110px'};
+      max-height: 120px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 2px solid #000;
@@ -215,7 +221,7 @@ export default function TracingWorksheetGenerator() {
     }
 
     .emoji-placeholder {
-      font-size: ${wordsPerPage === 2 ? '130px' : '110px'};
+      font-size: 110px;
       line-height: 1;
       color: #000;
       -webkit-text-stroke: 2px #000;
@@ -226,22 +232,25 @@ export default function TracingWorksheetGenerator() {
     .tracing-lines {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-top: 8px;
-      padding: 0 8px;
+      gap: 3px;
+      margin-top: 6px;
+      padding: 0 6px;
+      flex: 1;
     }
 
     .trace-line {
-      font-size: ${wordsPerPage === 2 ? '24pt' : '20pt'};
+      font-size: 22pt;
       font-weight: 700;
       font-family: 'Arial', sans-serif;
-      letter-spacing: 2px;
-      line-height: 1.8;
-      color: #ccc;
-      border-bottom: 1px solid #ccc;
-      min-height: ${wordsPerPage === 2 ? '36px' : '32px'};
-      word-spacing: 0.4em;
-      padding-bottom: 2px;
+      letter-spacing: 1px;
+      line-height: 1.6;
+      color: #ddd;
+      border-bottom: 1px solid #ddd;
+      word-spacing: 0.35em;
+      padding-bottom: 1px;
+      flex: 1;
+      display: flex;
+      align-items: center;
     }
 
     .print-button {
@@ -447,19 +456,7 @@ export default function TracingWorksheetGenerator() {
           {showSettings && (
             <div className="mb-6 p-4 bg-gray-50 rounded-lg">
               <h3 className="font-semibold mb-3">Cài đặt In</h3>
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Từ/trang: {wordsPerPage}</label>
-                  <input
-                    type="range"
-                    min="2"
-                    max="3"
-                    value={wordsPerPage}
-                    onChange={(e) => setWordsPerPage(Number(e.target.value))}
-                    className="w-full"
-                  />
-                  <span className="text-xs text-gray-500">2 = Rộng đẹp, 3 = Compact</span>
-                </div>
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Từ/dòng: {repeatCount}</label>
                   <input
@@ -588,56 +585,63 @@ export default function TracingWorksheetGenerator() {
         </div>
 
         {showPreview && (
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-bold mb-4">Xem trước ({wordsPerPage} từ/trang)</h2>
+          <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (2 từ/trang)</h2>
             {Array.from({ length: totalPages }).map((_, pageIdx) => {
               const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
               return (
-                <div key={pageIdx} className="border-2 border-gray-400 p-6 mb-4 bg-white">
+                <div key={pageIdx} className="border border-gray-300 m-6 mt-2 bg-white" style={{width: '210mm', height: '297mm', padding: '12mm 15mm', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
                   {pageIdx === 0 && (
-                    <div className="grid grid-cols-6 gap-3 mb-4 pb-4 border-b-2 border-gray-400">
-                      <div className="col-span-1 border-2 border-dashed border-gray-400 flex items-center justify-center h-20 text-xs text-gray-400">
+                    <div style={{display: 'grid', gridTemplateColumns: '70px 1fr', gap: '12px', marginBottom: '14px', paddingBottom: '12px', borderBottom: '2px solid #000'}}>
+                      <div style={{textAlign: 'center', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70px', fontSize: '9pt', color: '#000', background: '#fff'}}>
                         {schoolLogo ? (
-                          <img src={schoolLogo} alt="Logo" className="max-h-full max-w-full object-contain" />
+                          <img src={schoolLogo} alt="Logo" style={{maxWidth: '100%', maxHeight: '70px', objectFit: 'contain'}} />
                         ) : (
                           'Logo'
                         )}
                       </div>
-                      <div className="col-span-5">
-                        {schoolName && <div className="text-sm font-bold text-center mb-2">{schoolName}</div>}
-                        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs font-medium">
-                          <div>Name: ___________________</div>
-                          <div>Class: ___________________</div>
-                          <div>Date: ___________________</div>
-                          <div>Teacher: ___________________</div>
+                      <div>
+                        {schoolName && <div style={{fontSize: '14pt', fontWeight: 700, textAlign: 'center', marginBottom: '6px'}}>{schoolName}</div>}
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px', fontSize: '11pt', fontWeight: 600}}>
+                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+                            <span style={{fontWeight: 700, minWidth: '50px'}}>Name:</span>
+                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
+                          </div>
+                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+                            <span style={{fontWeight: 700, minWidth: '50px'}}>Class:</span>
+                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
+                          </div>
+                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+                            <span style={{fontWeight: 700, minWidth: '50px'}}>Date:</span>
+                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
+                          </div>
+                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+                            <span style={{fontWeight: 700, minWidth: '50px'}}>Teacher:</span>
+                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   )}
 
                   {pageWords.map((word, idx) => (
-                    <div key={word.id} className={`${idx < pageWords.length - 1 ? 'border-b-2 border-gray-400 pb-4 mb-4' : ''}`}>
-                      <div className="text-center mb-2">
+                    <div key={word.id} style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', borderBottom: idx < pageWords.length - 1 ? '2px solid #000' : 'none', padding: 0}}>
+                      <div style={{textAlign: 'center', marginBottom: '8px', minHeight: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         {word.image ? (
                           <img
                             src={word.image}
                             alt=""
-                            className="inline-block object-contain border-2 border-black p-1"
-                            style={{
-                              height: wordsPerPage === 2 ? '130px' : '100px',
-                              filter: 'grayscale(100%)'
-                            }}
+                            style={{maxWidth: '95%', maxHeight: '120px', objectFit: 'contain', filter: 'grayscale(100%)', border: '2px solid #000', padding: '4px', background: 'white'}}
                           />
                         ) : (
                           <div
-                            className="inline-block"
                             style={{
-                              fontSize: wordsPerPage === 2 ? '120px' : '100px',
-                              color: 'white',
-                              WebkitTextStroke: '3px #000',
-                              textStroke: '3px #000',
-                              paintOrder: 'stroke fill',
-                              filter: 'drop-shadow(0 0 1px #000)'
+                              fontSize: '110px',
+                              lineHeight: 1,
+                              color: '#000',
+                              WebkitTextStroke: '2px #000',
+                              textStroke: '2px #000',
+                              paintOrder: 'stroke fill'
                             }}
                           >
                             {word.emoji}
@@ -645,17 +649,23 @@ export default function TracingWorksheetGenerator() {
                         )}
                       </div>
 
-                      <div className="space-y-1 px-2">
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '6px', padding: '0 6px', flex: 1}}>
                         {Array.from({length: lineCount}).map((_, lineIdx) => (
                           <div
                             key={lineIdx}
-                            className="font-bold text-gray-300"
                             style={{
-                              fontSize: wordsPerPage === 2 ? '16pt' : '14pt',
-                              textAlign: 'justify',
-                              textAlignLast: 'justify',
+                              fontSize: '22pt',
+                              fontWeight: 700,
+                              fontFamily: 'Arial, sans-serif',
                               letterSpacing: '1px',
-                              wordSpacing: '0.3em'
+                              lineHeight: 1.6,
+                              color: '#ddd',
+                              borderBottom: '1px solid #ddd',
+                              wordSpacing: '0.35em',
+                              paddingBottom: '1px',
+                              flex: 1,
+                              display: 'flex',
+                              alignItems: 'center'
                             }}
                           >
                             {Array.from({length: repeatCount}).map((_, i) => word.text).join(' ')}
