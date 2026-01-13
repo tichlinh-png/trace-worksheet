@@ -85,7 +85,7 @@ export default function TracingWorksheetGenerator() {
   <style>
     @page {
       size: A4 portrait;
-      margin: 10mm;
+      margin: 12mm 15mm;
     }
 
     * {
@@ -94,19 +94,27 @@ export default function TracingWorksheetGenerator() {
       box-sizing: border-box;
     }
 
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background: white;
+      color: #000;
     }
 
     .page {
       page-break-after: always;
       page-break-inside: avoid;
-      width: 100%;
-      min-height: 277mm;
-      padding: 5mm 0;
+      width: 210mm;
+      height: 297mm;
+      padding: 12mm 15mm;
       display: flex;
       flex-direction: column;
+      background: white;
+      position: relative;
     }
 
     .page:last-child {
@@ -115,44 +123,62 @@ export default function TracingWorksheetGenerator() {
 
     .page-header {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 15px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
+      grid-template-columns: 70px 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
       border-bottom: 2px solid #000;
     }
 
     .logo-section {
       text-align: center;
-      border: 2px dashed #999;
+      border: 2px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 80px;
-      font-size: 10pt;
-      color: #999;
+      min-height: 70px;
+      font-size: 9pt;
+      color: #000;
+      background: #fff;
     }
 
     .logo-section img {
       max-width: 100%;
-      max-height: 80px;
+      max-height: 70px;
       object-fit: contain;
     }
 
     .header-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px 20px;
-      font-size: 10pt;
-      font-weight: 500;
+      gap: 8px 16px;
+      font-size: 11pt;
+      font-weight: 600;
     }
 
     .school-name {
       grid-column: 1 / -1;
-      font-size: 12pt;
-      font-weight: bold;
+      font-size: 14pt;
+      font-weight: 700;
       text-align: center;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
+    }
+
+    .header-item {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .header-label {
+      font-weight: 700;
+      min-width: 50px;
+    }
+
+    .header-line {
+      flex: 1;
+      border-bottom: 1px solid #000;
+      min-height: 16px;
     }
 
     .word-block {
@@ -161,7 +187,8 @@ export default function TracingWorksheetGenerator() {
       flex-direction: column;
       justify-content: center;
       border-bottom: 2px solid #000;
-      padding: 8px 0;
+      padding: 12px 0;
+      margin-bottom: 0;
     }
 
     .word-block:last-child {
@@ -170,49 +197,51 @@ export default function TracingWorksheetGenerator() {
 
     .image-container {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      min-height: ${wordsPerPage === 2 ? '140px' : '110px'};
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .worksheet-image {
-      max-width: 90%;
-      height: ${wordsPerPage === 2 ? '130px' : '100px'};
+      max-width: 95%;
+      max-height: ${wordsPerPage === 2 ? '140px' : '110px'};
       object-fit: contain;
-      filter: grayscale(100%) contrast(1.15) brightness(1.05);
+      filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 2px solid #000;
-      padding: 6px;
+      padding: 4px;
       background: white;
     }
 
     .emoji-placeholder {
-      font-size: ${wordsPerPage === 2 ? '120px' : '100px'};
+      font-size: ${wordsPerPage === 2 ? '130px' : '110px'};
       line-height: 1;
-      color: white;
-      -webkit-text-stroke: 3px #000;
-      text-stroke: 3px #000;
+      color: #000;
+      -webkit-text-stroke: 2px #000;
+      text-stroke: 2px #000;
       paint-order: stroke fill;
-      filter: drop-shadow(0 0 1px #000);
     }
 
     .tracing-lines {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      margin-top: 6px;
-      padding: 0 5px;
+      gap: 4px;
+      margin-top: 8px;
+      padding: 0 8px;
     }
 
     .trace-line {
-      font-size: ${wordsPerPage === 2 ? '16pt' : '14pt'};
-      font-weight: bold;
-      letter-spacing: 1px;
-      line-height: 1.7;
-      color: #e5e5e5;
-      text-shadow:
-        -1px -1px 0 #d5d5d5,
-        1px -1px 0 #d5d5d5,
-        -1px 1px 0 #d5d5d5,
-        1px 1px 0 #d5d5d5;
-      word-spacing: 0.3em;
+      font-size: ${wordsPerPage === 2 ? '24pt' : '20pt'};
+      font-weight: 700;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 2px;
+      line-height: 1.8;
+      color: #ccc;
+      border-bottom: 1px solid #ccc;
+      min-height: ${wordsPerPage === 2 ? '36px' : '32px'};
+      word-spacing: 0.4em;
+      padding-bottom: 2px;
     }
 
     .print-button {
@@ -225,6 +254,7 @@ export default function TracingWorksheetGenerator() {
       border: none;
       border-radius: 8px;
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       z-index: 1000;
@@ -235,23 +265,34 @@ export default function TracingWorksheetGenerator() {
     }
 
     @media print {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
       .print-button {
         display: none;
       }
 
-      body {
+      .page {
+        page-break-after: always;
         margin: 0;
+        padding: 12mm 15mm;
+        width: 210mm;
+        height: 297mm;
+        box-shadow: none;
       }
 
       * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+        color-adjust: exact !important;
       }
     }
   </style>
 </head>
 <body>
-  <button class="print-button" onclick="window.print()">🖨️ In / Lưu PDF</button>
+  <button class="print-button" onclick="window.print()">🖨️ In PDF</button>
 
 `;
 
@@ -270,10 +311,10 @@ export default function TracingWorksheetGenerator() {
     <div>
       ${schoolName ? `<div class="school-name">${schoolName}</div>` : ''}
       <div class="header-info">
-        <div>Name: ___________________</div>
-        <div>Class: ___________________</div>
-        <div>Date: ___________________</div>
-        <div>Teacher: ___________________</div>
+        <div class="header-item"><span class="header-label">Name:</span><span class="header-line"></span></div>
+        <div class="header-item"><span class="header-label">Class:</span><span class="header-line"></span></div>
+        <div class="header-item"><span class="header-label">Date:</span><span class="header-line"></span></div>
+        <div class="header-item"><span class="header-label">Teacher:</span><span class="header-line"></span></div>
       </div>
     </div>
   </div>`;
