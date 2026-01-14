@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Plus, Trash2, Download, Settings, Eye } from 'lucide-react';
+import { Plus, Trash2, Download, Settings, Eye, Printer } from 'lucide-react';
 
 export default function TracingWorksheetGenerator() {
   const [words, setWords] = useState([
@@ -187,24 +187,24 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border-bottom: 2px solid #000;
+      border-bottom: 1px solid #000;
       padding: 0;
       margin-bottom: 0;
     }
 
     .word-block:first-of-type {
-      padding-top: 8px;
+      padding-top: 4px;
     }
 
     .word-block:last-child {
       border-bottom: none;
-      padding-bottom: 8px;
+      padding-bottom: 4px;
     }
 
     .image-container {
       text-align: center;
-      margin-bottom: 8px;
-      min-height: 120px;
+      margin-bottom: 4px;
+      min-height: 90px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -212,71 +212,59 @@ export default function TracingWorksheetGenerator() {
 
     .worksheet-image {
       max-width: 95%;
-      max-height: 120px;
+      max-height: 90px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
-      border: 2px solid #000;
-      padding: 4px;
+      border: 1px solid #000;
+      padding: 2px;
       background: white;
     }
 
     .emoji-placeholder {
-      font-size: 110px;
+      font-size: 85px;
       line-height: 1;
       color: #000;
-      -webkit-text-stroke: 2px #000;
-      text-stroke: 2px #000;
+      -webkit-text-stroke: 1.5px #000;
+      text-stroke: 1.5px #000;
       paint-order: stroke fill;
     }
 
     .tracing-lines {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      margin-top: 6px;
-      padding: 0 6px;
+      gap: 2px;
+      margin-top: 3px;
+      padding: 0 4px;
       flex: 1;
     }
 
     .trace-line {
-      font-size: 22pt;
+      font-size: 24pt;
       font-weight: 700;
       font-family: 'Arial', sans-serif;
-      letter-spacing: 1px;
-      line-height: 1.6;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
       color: #ddd;
       border-bottom: 1px solid #ddd;
-      word-spacing: 0.35em;
-      padding-bottom: 1px;
+      word-spacing: 0.3em;
+      padding-bottom: 0;
       flex: 1;
       display: flex;
       align-items: center;
     }
 
-    .print-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 12px 24px;
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
-    }
-
-    .print-button:hover {
-      background: #2563eb;
-    }
 
     @media print {
-      html, body {
+      html {
         margin: 0;
         padding: 0;
+        background: white;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: white;
       }
 
       .print-button {
@@ -285,23 +273,36 @@ export default function TracingWorksheetGenerator() {
 
       .page {
         page-break-after: always;
+        page-break-inside: avoid;
         margin: 0;
         padding: 12mm 15mm;
         width: 210mm;
         height: 297mm;
+        box-sizing: border-box;
+        background: white;
         box-shadow: none;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 0;
       }
 
       * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
+        margin: 0;
+        padding: 0;
       }
     }
   </style>
 </head>
 <body>
-  <button class="print-button" onclick="window.print()">🖨️ In PDF</button>
 
 `;
 
@@ -371,6 +372,18 @@ export default function TracingWorksheetGenerator() {
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
+  };
+
+  const handlePrintPDF = () => {
+    const html = generateHTML();
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const printWindow = window.open(url, '_blank');
+    printWindow.onload = () => {
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+    };
   };
 
   const handleDownload = () => {
@@ -546,7 +559,7 @@ export default function TracingWorksheetGenerator() {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
             <button
               onClick={addWord}
               className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
@@ -560,16 +573,22 @@ export default function TracingWorksheetGenerator() {
               <Eye className="w-5 h-5" /> {showPreview ? 'Ẩn' : 'Xem'}
             </button>
             <button
-              onClick={handleOpenInNewTab}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition font-semibold"
+              onClick={handlePrintPDF}
+              className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold"
             >
-              <Download className="w-5 h-5" /> MỞ ĐỂ IN
+              <Printer className="w-5 h-5" /> IN PDF
+            </button>
+            <button
+              onClick={handleOpenInNewTab}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            >
+              <Download className="w-5 h-5" /> XEM
             </button>
             <button
               onClick={handleDownload}
               className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
             >
-              💾 Tải HTML
+              💾 HTML
             </button>
           </div>
 
