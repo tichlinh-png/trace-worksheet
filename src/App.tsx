@@ -661,16 +661,21 @@ export default function TracingWorksheetGenerator() {
                               fontFamily: 'Arial, sans-serif',
                               letterSpacing: '1px',
                               lineHeight: 1.6,
-                              color: practiceMode ? 'transparent' : '#ddd',
-                              borderBottom: practiceMode ? '2px dashed #999' : '1px solid #ddd',
+                              color: '#ddd',
+                              borderBottom: '1px solid #ddd',
                               wordSpacing: '0.35em',
                               paddingBottom: '1px',
                               flex: 1,
                               display: 'flex',
-                              alignItems: 'center'
+                              alignItems: 'center',
+                              gap: '0.35em'
                             }}
                           >
-                            {Array.from({length: repeatCount}).map((_, i) => word.text).join(' ')}
+                            {Array.from({length: repeatCount}).map((_, i) => (
+                              <span key={i} style={{color: practiceMode && i > 0 ? 'transparent' : '#ddd', borderBottom: practiceMode && i > 0 ? '2px dashed #999' : 'none', display: 'inline-block', minWidth: practiceMode && i > 0 ? '60px' : 'auto', paddingBottom: practiceMode && i > 0 ? '2px' : '0'}}>
+                                {word.text}
+                              </span>
+                            ))}
                           </div>
                         ))}
                       </div>
