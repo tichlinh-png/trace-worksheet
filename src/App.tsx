@@ -15,6 +15,7 @@ export default function TracingWorksheetGenerator() {
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [practiceMode, setPracticeMode] = useState(false);
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
 
@@ -561,6 +562,12 @@ export default function TracingWorksheetGenerator() {
               <Eye className="w-5 h-5" /> {showPreview ? 'Ẩn' : 'Xem'}
             </button>
             <button
+              onClick={() => setPracticeMode(!practiceMode)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition font-semibold ${practiceMode ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-gray-300 hover:bg-gray-400 text-gray-800'}`}
+            >
+              {practiceMode ? '✓' : '○'} Practice Mode
+            </button>
+            <button
               onClick={handlePrintPDF}
               className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold"
             >
@@ -654,8 +661,8 @@ export default function TracingWorksheetGenerator() {
                               fontFamily: 'Arial, sans-serif',
                               letterSpacing: '1px',
                               lineHeight: 1.6,
-                              color: '#ddd',
-                              borderBottom: '1px solid #ddd',
+                              color: practiceMode ? 'transparent' : '#ddd',
+                              borderBottom: practiceMode ? '2px dashed #999' : '1px solid #ddd',
                               wordSpacing: '0.35em',
                               paddingBottom: '1px',
                               flex: 1,
