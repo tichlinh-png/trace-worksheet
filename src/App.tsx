@@ -386,18 +386,6 @@ export default function TracingWorksheetGenerator() {
     };
   };
 
-  const handleDownload = () => {
-    const html = generateHTML();
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'tracing-worksheets.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
 
   const validWords = words.filter(w => w.text.trim());
   const totalPages = Math.ceil(validWords.length / wordsPerPage);
@@ -577,18 +565,6 @@ export default function TracingWorksheetGenerator() {
               className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold"
             >
               <Printer className="w-5 h-5" /> IN PDF
-            </button>
-            <button
-              onClick={handleOpenInNewTab}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-            >
-              <Download className="w-5 h-5" /> XEM
-            </button>
-            <button
-              onClick={handleDownload}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
-            >
-              💾 HTML
             </button>
           </div>
 
