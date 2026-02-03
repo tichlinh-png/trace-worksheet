@@ -262,7 +262,7 @@ export default function TracingWorksheetGenerator() {
 
     @media print {
       .practice-mode {
-        display: block !important;
+        display: flex !important;
       }
       html {
         margin: 0;
