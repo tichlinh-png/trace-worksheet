@@ -346,8 +346,10 @@ export default function TracingWorksheetGenerator() {
 
         for (let i = 0; i < lineCount; i++) {
           html += '<div class="trace-line">';
-          const words_array = Array.from({length: repeatCount}).map(() => word.text);
-          html += words_array.join(' ');
+          if (i === 0) {
+            const words_array = Array.from({length: repeatCount}).map(() => word.text);
+            html += words_array.join(' ');
+          }
           html += '</div>';
         }
 
@@ -572,7 +574,7 @@ export default function TracingWorksheetGenerator() {
             <div className="font-bold text-green-800 mb-1">✅ Hoàn thiện:</div>
             <div className="text-green-700">
               • 🎨 <strong>Emoji Coloring Page</strong> - Trắng bên trong, viền đen ngoài để tô màu
-              <br/>• 📏 <strong>Full chiều ngang</strong> - {repeatCount} từ/dòng × {lineCount} dòng = {repeatCount * lineCount} lần trace
+              <br/>• 📏 <strong>1 dòng mẫu</strong> - {repeatCount} từ/dòng, {lineCount-1} dòng trống để tập viết
               <br/>• 👤 Header: Name, Class, Date, Teacher
               <br/>• 💾 {totalPages} trang = {Math.ceil(totalPages/2)} mặt giấy (in 2 mặt)
             </div>
@@ -663,7 +665,7 @@ export default function TracingWorksheetGenerator() {
                               alignItems: 'center'
                             }}
                           >
-                            {Array.from({length: repeatCount}).map((_, i) => word.text).join(' ')}
+                            {lineIdx === 0 ? Array.from({length: repeatCount}).map((_, i) => word.text).join(' ') : ''}
                           </div>
                         ))}
                       </div>
