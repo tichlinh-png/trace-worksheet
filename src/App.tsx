@@ -14,6 +14,11 @@ export default function TracingWorksheetGenerator() {
   const [schoolLogo, setSchoolLogo] = useState(() => {
     return localStorage.getItem('schoolLogo') || null;
   });
+  const [savedImages, setSavedImages] = useState(() => {
+    const saved = localStorage.getItem('savedImages');
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [showImageLibrary, setShowImageLibrary] = useState({});
   const wordsPerPage = 2;
   const [repeatCount, setRepeatCount] = useState(12);
   const [lineCount, setLineCount] = useState(4);
@@ -40,7 +45,12 @@ export default function TracingWorksheetGenerator() {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        updateWord(id, 'image', event.target.result);
+        const imageData = event.target.result;
+        updateWord(id, 'image', imageData);
+        const key = `img_${Date.now()}`;
+        const newSavedImages = { ...savedImages, [key]: imageData };
+        setSavedImages(newSavedImages);
+        localStorage.setItem('savedImages', JSON.stringify(newSavedImages));
       };
       reader.readAsDataURL(file);
     }
@@ -53,7 +63,12 @@ export default function TracingWorksheetGenerator() {
         const blob = items[i].getAsFile();
         const reader = new FileReader();
         reader.onload = (event) => {
-          updateWord(id, 'image', event.target.result);
+          const imageData = event.target.result;
+          updateWord(id, 'image', imageData);
+          const key = `img_${Date.now()}`;
+          const newSavedImages = { ...savedImages, [key]: imageData };
+          setSavedImages(newSavedImages);
+          localStorage.setItem('savedImages', JSON.stringify(newSavedImages));
         };
         reader.readAsDataURL(blob);
         e.preventDefault();
@@ -214,7 +229,7 @@ export default function TracingWorksheetGenerator() {
     .image-container {
       text-align: center;
       margin-bottom: 4px;
-      min-height: 90px;
+      min-height: 140px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -222,7 +237,7 @@ export default function TracingWorksheetGenerator() {
 
     .worksheet-image {
       max-width: 95%;
-      max-height: 90px;
+      max-height: 140px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
@@ -530,6 +545,14 @@ export default function TracingWorksheetGenerator() {
                   >
                     📷 Ảnh
                   </button>
+                  {Object.keys(savedImages).length > 0 && (
+                    <button
+                      onClick={() => setShowImageLibrary(prev => ({ ...prev, [word.id]: !prev[word.id] }))}
+                      className="px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition text-sm"
+                    >
+                      📚 Thư viện
+                    </button>
+                  )}
                   <button
                     onClick={() => deleteWord(word.id)}
                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"
@@ -546,7 +569,7 @@ export default function TracingWorksheetGenerator() {
                 >
                   {word.image ? (
                     <div className="relative inline-block">
-                      <img src={word.image} alt="" className="max-h-24 rounded" />
+                      <img src={word.image} alt="" className="max-h-48 rounded" />
                       <button
                         onClick={() => updateWord(word.id, 'image', null)}
                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
@@ -558,6 +581,23 @@ export default function TracingWorksheetGenerator() {
                     <span>📋 Ctrl+V để dán ảnh</span>
                   )}
                 </div>
+
+                {showImageLibrary[word.id] && (
+                  <div className="mt-3 grid grid-cols-4 gap-2 p-3 bg-gray-100 rounded-lg">
+                    {Object.entries(savedImages).map(([key, imgData]) => (
+                      <button
+                        key={key}
+                        onClick={() => {
+                          updateWord(word.id, 'image', imgData);
+                          setShowImageLibrary(prev => ({ ...prev, [word.id]: false }));
+                        }}
+                        className="relative group"
+                      >
+                        <img src={imgData} alt="" className="w-full h-20 object-cover rounded border-2 border-blue-400" />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -636,12 +676,12 @@ export default function TracingWorksheetGenerator() {
 
                   {pageWords.map((word, idx) => (
                     <div key={word.id} style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', borderBottom: idx < pageWords.length - 1 ? '2px solid #000' : 'none', padding: 0}}>
-                      <div style={{textAlign: 'center', marginBottom: '8px', minHeight: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                      <div style={{textAlign: 'center', marginBottom: '8px', minHeight: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         {word.image ? (
                           <img
                             src={word.image}
                             alt=""
-                            style={{maxWidth: '95%', maxHeight: '120px', objectFit: 'contain', filter: 'grayscale(100%)', border: '2px solid #000', padding: '4px', background: 'white'}}
+                            style={{maxWidth: '95%', maxHeight: '140px', objectFit: 'contain', filter: 'grayscale(100%)', border: '2px solid #000', padding: '4px', background: 'white'}}
                           />
                         ) : (
                           <div
