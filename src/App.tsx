@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Plus, Trash2, Download, Settings, Eye, Printer } from 'lucide-react';
 
 export default function TracingWorksheetGenerator() {
@@ -8,8 +8,12 @@ export default function TracingWorksheetGenerator() {
     { id: 3, text: 'Birds', emoji: '🐦' },
     { id: 4, text: 'Cows', emoji: '🐄' }
   ]);
-  const [schoolName, setSchoolName] = useState('');
-  const [schoolLogo, setSchoolLogo] = useState(null);
+  const [schoolName, setSchoolName] = useState(() => {
+    return localStorage.getItem('schoolName') || '';
+  });
+  const [schoolLogo, setSchoolLogo] = useState(() => {
+    return localStorage.getItem('schoolLogo') || null;
+  });
   const wordsPerPage = 2;
   const [repeatCount, setRepeatCount] = useState(12);
   const [lineCount, setLineCount] = useState(4);
@@ -63,11 +67,17 @@ export default function TracingWorksheetGenerator() {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        setSchoolLogo(event.target.result);
+        const logoData = event.target.result;
+        setSchoolLogo(logoData);
+        localStorage.setItem('schoolLogo', logoData);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('schoolName', schoolName);
+  }, [schoolName]);
 
   const generateHTML = () => {
     const validWords = words.filter(w => w.text.trim());
@@ -442,7 +452,10 @@ export default function TracingWorksheetGenerator() {
                   </button>
                   {schoolLogo && (
                     <button
-                      onClick={() => setSchoolLogo(null)}
+                      onClick={() => {
+                        setSchoolLogo(null);
+                        localStorage.removeItem('schoolLogo');
+                      }}
                       className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-sm"
                     >
                       Xoá
