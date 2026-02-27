@@ -19,7 +19,7 @@ export default function TracingWorksheetGenerator() {
     return saved ? JSON.parse(saved) : {};
   });
   const [showImageLibrary, setShowImageLibrary] = useState({});
-  const wordsPerPage = 2;
+  const wordsPerPage = 3;
   const [repeatCount, setRepeatCount] = useState(12);
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
@@ -636,7 +636,7 @@ export default function TracingWorksheetGenerator() {
 
         {showPreview && (
           <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
-            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (2 từ/trang)</h2>
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (3 từ/trang)</h2>
             {Array.from({ length: totalPages }).map((_, pageIdx) => {
               const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
               return (
