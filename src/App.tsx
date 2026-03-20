@@ -39,6 +39,16 @@ export default function TracingWorksheetGenerator() {
 
   const wordsPerPage = getWordsPerPage();
 
+  const saveWordToCloud = async (word) => {
+    if (word.text.trim()) {
+      await supabase.from('vocabulary').insert({
+        text: word.text,
+        emoji: word.emoji,
+        image_data: word.image || null
+      });
+    }
+  };
+
   const addWord = () => {
     const newId = Math.max(...words.map(w => w.id), 0) + 1;
     setWords([...words, { id: newId, text: '', emoji: '📝' }]);
@@ -618,6 +628,15 @@ export default function TracingWorksheetGenerator() {
                       📚 Thư viện
                     </button>
                   )}
+                  <button
+                    onClick={async () => {
+                      await saveWordToCloud(word);
+                      alert('Lưu từ vào cloud thành công!');
+                    }}
+                    className="px-3 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition text-sm"
+                  >
+                    ☁️ Lưu
+                  </button>
                   <button
                     onClick={() => deleteWord(word.id)}
                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"
