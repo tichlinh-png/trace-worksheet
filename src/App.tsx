@@ -1,5 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { Plus, Trash2, Download, Settings, Eye, Printer } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 export default function TracingWorksheetGenerator() {
   const [words, setWords] = useState([
@@ -8,24 +14,30 @@ export default function TracingWorksheetGenerator() {
     { id: 3, text: 'Birds', emoji: '🐦' },
     { id: 4, text: 'Cows', emoji: '🐄' }
   ]);
-  const [schoolName, setSchoolName] = useState(() => {
-    return localStorage.getItem('schoolName') || '';
-  });
-  const [schoolLogo, setSchoolLogo] = useState(() => {
-    return localStorage.getItem('schoolLogo') || null;
-  });
-  const [savedImages, setSavedImages] = useState(() => {
-    const saved = localStorage.getItem('savedImages');
-    return saved ? JSON.parse(saved) : {};
-  });
+  const [schoolName, setSchoolName] = useState('');
+  const [schoolLogo, setSchoolLogo] = useState(null);
+  const [savedImages, setSavedImages] = useState({});
   const [showImageLibrary, setShowImageLibrary] = useState({});
-  const wordsPerPage = 3;
   const [repeatCount, setRepeatCount] = useState(12);
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+
+  const getWordsPerPage = () => {
+    const validWordsCount = words.filter(w => w.text.trim()).length;
+    if (validWordsCount === 0) return 3;
+    if (validWordsCount === 1) return 1;
+    if (validWordsCount === 2) return 1;
+    if (validWordsCount === 3) return 1;
+    if (validWordsCount === 4) return 2;
+    if (validWordsCount % 2 === 0) return validWordsCount / 2;
+    return 3;
+  };
+
+  const wordsPerPage = getWordsPerPage();
 
   const addWord = () => {
     const newId = Math.max(...words.map(w => w.id), 0) + 1;
@@ -40,17 +52,20 @@ export default function TracingWorksheetGenerator() {
     setWords(words.filter(w => w.id !== id));
   };
 
-  const handleImageUpload = (id, e) => {
+  const handleImageUpload = async (id, e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = async (event) => {
         const imageData = event.target.result;
         updateWord(id, 'image', imageData);
         const key = `img_${Date.now()}`;
         const newSavedImages = { ...savedImages, [key]: imageData };
         setSavedImages(newSavedImages);
-        localStorage.setItem('savedImages', JSON.stringify(newSavedImages));
+        await supabase.from('image_library').insert({
+          name: file.name,
+          image_data: imageData
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -62,13 +77,16 @@ export default function TracingWorksheetGenerator() {
       if (items[i].type.indexOf('image') !== -1) {
         const blob = items[i].getAsFile();
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onload = async (event) => {
           const imageData = event.target.result;
           updateWord(id, 'image', imageData);
           const key = `img_${Date.now()}`;
           const newSavedImages = { ...savedImages, [key]: imageData };
           setSavedImages(newSavedImages);
-          localStorage.setItem('savedImages', JSON.stringify(newSavedImages));
+          await supabase.from('image_library').insert({
+            name: `pasted_${Date.now()}.png`,
+            image_data: imageData
+          });
         };
         reader.readAsDataURL(blob);
         e.preventDefault();
@@ -81,17 +99,56 @@ export default function TracingWorksheetGenerator() {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = async (event) => {
         const logoData = event.target.result;
         setSchoolLogo(logoData);
-        localStorage.setItem('schoolLogo', logoData);
+        await saveSettings({ logo_url: logoData, school_name: schoolName });
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const saveSettings = async (updates) => {
+    const { data: existing } = await supabase.from('app_settings').select('id').maybeSingle();
+    if (existing) {
+      await supabase.from('app_settings').update(updates).eq('id', existing.id);
+    } else {
+      await supabase.from('app_settings').insert(updates);
+    }
+  };
+
+  const loadSettings = async () => {
+    try {
+      const { data } = await supabase.from('app_settings').select('*').maybeSingle();
+      if (data) {
+        setSchoolName(data.school_name || '');
+        setSchoolLogo(data.logo_url || null);
+        setRepeatCount(data.default_repeat_count || 12);
+        setLineCount(data.default_line_count || 4);
+      }
+      const { data: images } = await supabase.from('image_library').select('*');
+      if (images) {
+        const imageMap = {};
+        images.forEach((img, idx) => {
+          imageMap[`img_${img.id}`] = img.image_data;
+        });
+        setSavedImages(imageMap);
+      }
+    } catch (error) {
+      console.error('Error loading settings:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem('schoolName', schoolName);
+    loadSettings();
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      saveSettings({ school_name: schoolName });
+    }
   }, [schoolName]);
 
   const generateHTML = () => {
@@ -417,6 +474,14 @@ export default function TracingWorksheetGenerator() {
   const validWords = words.filter(w => w.text.trim());
   const totalPages = Math.ceil(validWords.length / wordsPerPage);
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-600">Đang tải...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto p-6">
@@ -467,9 +532,9 @@ export default function TracingWorksheetGenerator() {
                   </button>
                   {schoolLogo && (
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         setSchoolLogo(null);
-                        localStorage.removeItem('schoolLogo');
+                        await saveSettings({ logo_url: null });
                       }}
                       className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-sm"
                     >
@@ -636,7 +701,7 @@ export default function TracingWorksheetGenerator() {
 
         {showPreview && (
           <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
-            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (3 từ/trang)</h2>
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước ({wordsPerPage} từ/trang)</h2>
             {Array.from({ length: totalPages }).map((_, pageIdx) => {
               const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
               return (
