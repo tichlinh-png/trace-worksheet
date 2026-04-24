@@ -25,33 +25,27 @@ export default function TracingWorksheetGenerator() {
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
-  const [savedWordIds, setSavedWordIds] = useState(new Set());
 
-  const getPages = (wordsList) => {
-    const pages = [];
-    let idx = 0;
-
-    if (wordsList.length > 0) {
-      pages.push(wordsList.slice(idx, idx + 2));
-      idx += 2;
-    }
-
-    while (idx < wordsList.length) {
-      pages.push(wordsList.slice(idx, idx + 3));
-      idx += 3;
-    }
-
-    return pages;
+  const getWordsPerPage = () => {
+    const validWordsCount = words.filter(w => w.text.trim()).length;
+    if (validWordsCount === 0) return 3;
+    if (validWordsCount === 1) return 1;
+    if (validWordsCount === 2) return 1;
+    if (validWordsCount === 3) return 1;
+    if (validWordsCount === 4) return 2;
+    if (validWordsCount % 2 === 0) return validWordsCount / 2;
+    return 3;
   };
 
+  const wordsPerPage = getWordsPerPage();
+
   const saveWordToCloud = async (word) => {
-    if (word.text.trim() && !savedWordIds.has(word.id)) {
+    if (word.text.trim()) {
       await supabase.from('vocabulary').insert({
         text: word.text,
         emoji: word.emoji,
         image_data: word.image || null
       });
-      setSavedWordIds(prev => new Set([...prev, word.id]));
     }
   };
 
@@ -169,7 +163,11 @@ export default function TracingWorksheetGenerator() {
 
   const generateHTML = () => {
     const validWords = words.filter(w => w.text.trim());
-    const pages = getPages(validWords);
+    const pages = [];
+
+    for (let i = 0; i < validWords.length; i += wordsPerPage) {
+      pages.push(validWords.slice(i, i + wordsPerPage));
+    }
 
     let html = `<!DOCTYPE html>
 <html>
@@ -484,8 +482,7 @@ export default function TracingWorksheetGenerator() {
 
 
   const validWords = words.filter(w => w.text.trim());
-  const pages = getPages(validWords);
-  const totalPages = pages.length;
+  const totalPages = Math.ceil(validWords.length / wordsPerPage);
 
   if (loading) {
     return (
@@ -633,21 +630,12 @@ export default function TracingWorksheetGenerator() {
                   )}
                   <button
                     onClick={async () => {
-                      if (savedWordIds.has(word.id)) {
-                        alert('Từ này đã được lưu!');
-                        return;
-                      }
                       await saveWordToCloud(word);
                       alert('Lưu từ vào cloud thành công!');
                     }}
-                    disabled={savedWordIds.has(word.id)}
-                    className={`px-3 py-2 rounded-lg transition text-sm ${
-                      savedWordIds.has(word.id)
-                        ? 'bg-gray-400 text-white cursor-not-allowed'
-                        : 'bg-cyan-500 text-white hover:bg-cyan-600'
-                    }`}
+                    className="px-3 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition text-sm"
                   >
-                    {savedWordIds.has(word.id) ? '✓ Đã lưu' : '☁️ Lưu'}
+                    ☁️ Lưu
                   </button>
                   <button
                     onClick={() => deleteWord(word.id)}
@@ -723,17 +711,18 @@ export default function TracingWorksheetGenerator() {
             <div className="font-bold text-green-800 mb-1">✅ Hoàn thiện:</div>
             <div className="text-green-700">
               • 🎨 <strong>Emoji Coloring Page</strong> - Trắng bên trong, viền đen ngoài để tô màu
-              <br/>• 📏 <strong>1 dòng mẫu, 1 từ</strong> - {lineCount-1} dòng trống để tập viết
+              <br/>• 📏 <strong>1 dòng mẫu</strong> - {repeatCount} từ/dòng, {lineCount-1} dòng trống để tập viết
               <br/>• 👤 Header: Name, Class, Date, Teacher
-              <br/>• 💾 {totalPages} trang (Trang 1: 2 từ, Trang 2+: 3 từ) = {Math.ceil(totalPages/2)} mặt giấy (in 2 mặt)
+              <br/>• 💾 {totalPages} trang = {Math.ceil(totalPages/2)} mặt giấy (in 2 mặt)
             </div>
           </div>
         </div>
 
         {showPreview && (
           <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
-            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (Trang 1: 2 từ, Trang 2+: 3 từ)</h2>
-            {pages.map((pageWords, pageIdx) => {
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước ({wordsPerPage} từ/trang)</h2>
+            {Array.from({ length: totalPages }).map((_, pageIdx) => {
+              const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
               return (
                 <div key={pageIdx} className="border border-gray-300 m-6 mt-2 bg-white" style={{width: '210mm', height: '297mm', padding: '12mm 15mm', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
                   {pageIdx === 0 && (
@@ -795,24 +784,7 @@ export default function TracingWorksheetGenerator() {
                       </div>
 
                       <div style={{display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '6px', padding: '0 6px', flex: 1}}>
-                        <div
-                          style={{
-                            fontSize: '22pt',
-                            fontWeight: 700,
-                            fontFamily: 'Arial, sans-serif',
-                            letterSpacing: '1px',
-                            lineHeight: 1.6,
-                            color: '#333',
-                            borderBottom: '2px solid #000',
-                            wordSpacing: '0.35em',
-                            paddingBottom: '2px',
-                            display: 'flex',
-                            alignItems: 'center'
-                          }}
-                        >
-                          {word.text}
-                        </div>
-                        {Array.from({length: lineCount - 1}).map((_, lineIdx) => (
+                        {Array.from({length: lineCount}).map((_, lineIdx) => (
                           <div
                             key={lineIdx}
                             style={{
@@ -825,9 +797,12 @@ export default function TracingWorksheetGenerator() {
                               borderBottom: '1px solid #ddd',
                               wordSpacing: '0.35em',
                               paddingBottom: '1px',
-                              flex: 1
+                              flex: 1,
+                              display: 'flex',
+                              alignItems: 'center'
                             }}
                           >
+                            {lineIdx === 0 ? Array.from({length: repeatCount}).map((_, i) => word.text).join(' ') : ''}
                           </div>
                         ))}
                       </div>
