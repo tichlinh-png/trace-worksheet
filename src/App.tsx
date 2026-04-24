@@ -25,6 +25,7 @@ export default function TracingWorksheetGenerator() {
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
+  const [savedWordIds, setSavedWordIds] = useState(new Set());
 
   const getWordsPerPage = () => {
     const validWordsCount = words.filter(w => w.text.trim()).length;
@@ -40,12 +41,13 @@ export default function TracingWorksheetGenerator() {
   const wordsPerPage = getWordsPerPage();
 
   const saveWordToCloud = async (word) => {
-    if (word.text.trim()) {
+    if (word.text.trim() && !savedWordIds.has(word.id)) {
       await supabase.from('vocabulary').insert({
         text: word.text,
         emoji: word.emoji,
         image_data: word.image || null
       });
+      setSavedWordIds(prev => new Set([...prev, word.id]));
     }
   };
 
@@ -630,12 +632,21 @@ export default function TracingWorksheetGenerator() {
                   )}
                   <button
                     onClick={async () => {
+                      if (savedWordIds.has(word.id)) {
+                        alert('Từ này đã được lưu!');
+                        return;
+                      }
                       await saveWordToCloud(word);
                       alert('Lưu từ vào cloud thành công!');
                     }}
-                    className="px-3 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition text-sm"
+                    disabled={savedWordIds.has(word.id)}
+                    className={`px-3 py-2 rounded-lg transition text-sm ${
+                      savedWordIds.has(word.id)
+                        ? 'bg-gray-400 text-white cursor-not-allowed'
+                        : 'bg-cyan-500 text-white hover:bg-cyan-600'
+                    }`}
                   >
-                    ☁️ Lưu
+                    {savedWordIds.has(word.id) ? '✓ Đã lưu' : '☁️ Lưu'}
                   </button>
                   <button
                     onClick={() => deleteWord(word.id)}
