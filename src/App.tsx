@@ -27,18 +27,22 @@ export default function TracingWorksheetGenerator() {
   const [loading, setLoading] = useState(true);
   const [savedWordIds, setSavedWordIds] = useState(new Set());
 
-  const getWordsPerPage = () => {
-    const validWordsCount = words.filter(w => w.text.trim()).length;
-    if (validWordsCount === 0) return 3;
-    if (validWordsCount === 1) return 1;
-    if (validWordsCount === 2) return 1;
-    if (validWordsCount === 3) return 1;
-    if (validWordsCount === 4) return 2;
-    if (validWordsCount % 2 === 0) return validWordsCount / 2;
-    return 3;
-  };
+  const getPages = (wordsList) => {
+    const pages = [];
+    let idx = 0;
 
-  const wordsPerPage = getWordsPerPage();
+    if (wordsList.length > 0) {
+      pages.push(wordsList.slice(idx, idx + 2));
+      idx += 2;
+    }
+
+    while (idx < wordsList.length) {
+      pages.push(wordsList.slice(idx, idx + 3));
+      idx += 3;
+    }
+
+    return pages;
+  };
 
   const saveWordToCloud = async (word) => {
     if (word.text.trim() && !savedWordIds.has(word.id)) {
@@ -165,11 +169,7 @@ export default function TracingWorksheetGenerator() {
 
   const generateHTML = () => {
     const validWords = words.filter(w => w.text.trim());
-    const pages = [];
-
-    for (let i = 0; i < validWords.length; i += wordsPerPage) {
-      pages.push(validWords.slice(i, i + wordsPerPage));
-    }
+    const pages = getPages(validWords);
 
     let html = `<!DOCTYPE html>
 <html>
@@ -484,7 +484,8 @@ export default function TracingWorksheetGenerator() {
 
 
   const validWords = words.filter(w => w.text.trim());
-  const totalPages = Math.ceil(validWords.length / wordsPerPage);
+  const pages = getPages(validWords);
+  const totalPages = pages.length;
 
   if (loading) {
     return (
@@ -722,18 +723,17 @@ export default function TracingWorksheetGenerator() {
             <div className="font-bold text-green-800 mb-1">✅ Hoàn thiện:</div>
             <div className="text-green-700">
               • 🎨 <strong>Emoji Coloring Page</strong> - Trắng bên trong, viền đen ngoài để tô màu
-              <br/>• 📏 <strong>1 dòng mẫu</strong> - {repeatCount} từ/dòng, {lineCount-1} dòng trống để tập viết
+              <br/>• 📏 <strong>1 dòng mẫu, 1 từ</strong> - {lineCount-1} dòng trống để tập viết
               <br/>• 👤 Header: Name, Class, Date, Teacher
-              <br/>• 💾 {totalPages} trang = {Math.ceil(totalPages/2)} mặt giấy (in 2 mặt)
+              <br/>• 💾 {totalPages} trang (Trang 1: 2 từ, Trang 2+: 3 từ) = {Math.ceil(totalPages/2)} mặt giấy (in 2 mặt)
             </div>
           </div>
         </div>
 
         {showPreview && (
           <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
-            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước ({wordsPerPage} từ/trang)</h2>
-            {Array.from({ length: totalPages }).map((_, pageIdx) => {
-              const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước (Trang 1: 2 từ, Trang 2+: 3 từ)</h2>
+            {pages.map((pageWords, pageIdx) => {
               return (
                 <div key={pageIdx} className="border border-gray-300 m-6 mt-2 bg-white" style={{width: '210mm', height: '297mm', padding: '12mm 15mm', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
                   {pageIdx === 0 && (
