@@ -795,7 +795,24 @@ export default function TracingWorksheetGenerator() {
                       </div>
 
                       <div style={{display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '6px', padding: '0 6px', flex: 1}}>
-                        {Array.from({length: lineCount}).map((_, lineIdx) => (
+                        <div
+                          style={{
+                            fontSize: '22pt',
+                            fontWeight: 700,
+                            fontFamily: 'Arial, sans-serif',
+                            letterSpacing: '1px',
+                            lineHeight: 1.6,
+                            color: '#333',
+                            borderBottom: '2px solid #000',
+                            wordSpacing: '0.35em',
+                            paddingBottom: '2px',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          {Array.from({length: repeatCount}).map((_, i) => word.text).join(' ')}
+                        </div>
+                        {Array.from({length: lineCount - 1}).map((_, lineIdx) => (
                           <div
                             key={lineIdx}
                             style={{
@@ -808,12 +825,9 @@ export default function TracingWorksheetGenerator() {
                               borderBottom: '1px solid #ddd',
                               wordSpacing: '0.35em',
                               paddingBottom: '1px',
-                              flex: 1,
-                              display: 'flex',
-                              alignItems: 'center'
+                              flex: 1
                             }}
                           >
-                            {lineIdx === 0 ? Array.from({length: repeatCount}).map((_, i) => word.text).join(' ') : ''}
                           </div>
                         ))}
                       </div>
