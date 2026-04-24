@@ -810,7 +810,7 @@ export default function TracingWorksheetGenerator() {
                             alignItems: 'center'
                           }}
                         >
-                          {Array.from({length: repeatCount}).map((_, i) => word.text).join(' ')}
+                          {word.text}
                         </div>
                         {Array.from({length: lineCount - 1}).map((_, lineIdx) => (
                           <div
