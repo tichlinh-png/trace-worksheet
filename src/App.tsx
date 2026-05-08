@@ -55,7 +55,20 @@ export default function TracingWorksheetGenerator() {
   };
 
   const updateWord = (id, field, value) => {
-    setWords(words.map(w => w.id === id ? { ...w, [field]: value } : w));
+    setWords(words.map(w => {
+      if (w.id === id) {
+        const updated = { ...w, [field]: value };
+        // Auto-fill image from library when text is changed
+        if (field === 'text' && value.trim() && !updated.image) {
+          const vocabKey = `vocab_${value.toLowerCase().trim()}`;
+          if (savedImages[vocabKey]) {
+            updated.image = savedImages[vocabKey];
+          }
+        }
+        return updated;
+      }
+      return w;
+    }));
   };
 
   const deleteWord = (id) => {
@@ -439,8 +452,7 @@ export default function TracingWorksheetGenerator() {
         for (let i = 0; i < lineCount; i++) {
           html += '<div class="trace-line">';
           if (i === 0) {
-            const words_array = Array.from({length: repeatCount}).map(() => word.text);
-            html += words_array.join(' ');
+            html += word.text;
           }
           html += '</div>';
         }
@@ -784,24 +796,7 @@ export default function TracingWorksheetGenerator() {
                       </div>
 
                       <div style={{display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '6px', padding: '0 6px', flex: 1}}>
-                        <div
-                          style={{
-                            fontSize: '22pt',
-                            fontWeight: 700,
-                            fontFamily: 'Arial, sans-serif',
-                            letterSpacing: '1px',
-                            lineHeight: 1.6,
-                            color: '#333',
-                            borderBottom: '2px solid #000',
-                            wordSpacing: '0.35em',
-                            paddingBottom: '2px',
-                            display: 'flex',
-                            alignItems: 'center'
-                          }}
-                        >
-                          {word.text}
-                        </div>
-                        {Array.from({length: lineCount - 1}).map((_, lineIdx) => (
+                        {Array.from({length: lineCount}).map((_, lineIdx) => (
                           <div
                             key={lineIdx}
                             style={{
@@ -814,9 +809,12 @@ export default function TracingWorksheetGenerator() {
                               borderBottom: '1px solid #ddd',
                               wordSpacing: '0.35em',
                               paddingBottom: '1px',
-                              flex: 1
+                              flex: 1,
+                              display: 'flex',
+                              alignItems: 'center'
                             }}
                           >
+                            {lineIdx === 0 ? word.text : ''}
                           </div>
                         ))}
                       </div>
