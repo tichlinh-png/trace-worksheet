@@ -83,8 +83,12 @@ export default function TracingWorksheetGenerator() {
         const imageData = event.target.result;
         const currentWord = words.find(w => w.id === id);
         updateWord(id, 'image', imageData);
+        const vocabKey = `vocab_${currentWord?.text.toLowerCase().trim()}`;
         const key = `img_${Date.now()}`;
         const newSavedImages = { ...savedImages, [key]: imageData };
+        if (currentWord?.text.trim()) {
+          newSavedImages[vocabKey] = imageData;
+        }
         setSavedImages(newSavedImages);
         await supabase.from('image_library').insert({
           name: file.name,
@@ -106,8 +110,12 @@ export default function TracingWorksheetGenerator() {
           const imageData = event.target.result;
           const currentWord = words.find(w => w.id === id);
           updateWord(id, 'image', imageData);
+          const vocabKey = `vocab_${currentWord?.text.toLowerCase().trim()}`;
           const key = `img_${Date.now()}`;
           const newSavedImages = { ...savedImages, [key]: imageData };
+          if (currentWord?.text.trim()) {
+            newSavedImages[vocabKey] = imageData;
+          }
           setSavedImages(newSavedImages);
           await supabase.from('image_library').insert({
             name: `pasted_${Date.now()}.png`,
