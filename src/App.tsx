@@ -81,13 +81,15 @@ export default function TracingWorksheetGenerator() {
       const reader = new FileReader();
       reader.onload = async (event) => {
         const imageData = event.target.result;
+        const currentWord = words.find(w => w.id === id);
         updateWord(id, 'image', imageData);
         const key = `img_${Date.now()}`;
         const newSavedImages = { ...savedImages, [key]: imageData };
         setSavedImages(newSavedImages);
         await supabase.from('image_library').insert({
           name: file.name,
-          image_data: imageData
+          image_data: imageData,
+          vocabulary_text: currentWord?.text.toLowerCase().trim() || null
         });
       };
       reader.readAsDataURL(file);
@@ -102,13 +104,15 @@ export default function TracingWorksheetGenerator() {
         const reader = new FileReader();
         reader.onload = async (event) => {
           const imageData = event.target.result;
+          const currentWord = words.find(w => w.id === id);
           updateWord(id, 'image', imageData);
           const key = `img_${Date.now()}`;
           const newSavedImages = { ...savedImages, [key]: imageData };
           setSavedImages(newSavedImages);
           await supabase.from('image_library').insert({
             name: `pasted_${Date.now()}.png`,
-            image_data: imageData
+            image_data: imageData,
+            vocabulary_text: currentWord?.text.toLowerCase().trim() || null
           });
         };
         reader.readAsDataURL(blob);
@@ -152,8 +156,11 @@ export default function TracingWorksheetGenerator() {
       const { data: images } = await supabase.from('image_library').select('*');
       if (images) {
         const imageMap = {};
-        images.forEach((img, idx) => {
+        images.forEach((img) => {
           imageMap[`img_${img.id}`] = img.image_data;
+          if (img.vocabulary_text) {
+            imageMap[`vocab_${img.vocabulary_text}`] = img.image_data;
+          }
         });
         setSavedImages(imageMap);
       }
