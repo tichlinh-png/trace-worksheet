@@ -336,6 +336,10 @@ export default function TracingWorksheetGenerator() {
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
+    }
+
+    .worksheet-image.small {
+      max-height: 80px;
       padding: 2px;
       background: white;
     }
@@ -455,7 +459,8 @@ export default function TracingWorksheetGenerator() {
     <div class="image-container">`;
 
         if (word.image) {
-          html += `<img src="${word.image}" alt="${word.text}" class="worksheet-image">`;
+          const imageSize = word.text.length >= 6 ? 'small' : 'normal';
+          html += `<img src="${word.image}" alt="${word.text}" class="worksheet-image ${imageSize}">`;
         } else {
           html += `<div class="emoji-placeholder">${word.emoji}</div>`;
         }
