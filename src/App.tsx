@@ -329,17 +329,16 @@ export default function TracingWorksheetGenerator() {
     }
 
     .worksheet-image {
-      max-width: 95%;
-      max-height: 140px;
+      max-width: 120px;
+      max-height: 100px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
     }
 
     .worksheet-image.small {
-      max-height: 80px;
-      padding: 2px;
-      background: white;
+      max-width: 100px;
+      max-height: 70px;
     }
 
     .emoji-placeholder {
@@ -360,18 +359,19 @@ export default function TracingWorksheetGenerator() {
     }
 
     .trace-line {
-      font-size: 24pt;
-      font-weight: 700;
+      font-size: 14pt;
+      font-weight: 400;
       font-family: 'Arial', sans-serif;
       letter-spacing: 0.5px;
-      line-height: 1.5;
+      line-height: 1.8;
       color: #ddd;
       border-bottom: 1px solid #ddd;
       word-spacing: 0.3em;
-      padding-bottom: 0;
+      padding-bottom: 2px;
       flex: 1;
       display: flex;
       align-items: center;
+      min-height: 20px;
     }
 
 
