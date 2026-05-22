@@ -303,12 +303,12 @@ export default function TracingWorksheetGenerator() {
     }
 
     .word-block {
-      flex: 1;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 8px;
       border-bottom: 1px solid #000;
-      padding: 0;
+      padding: 4px 0;
       margin-bottom: 0;
     }
 
@@ -322,12 +322,10 @@ export default function TracingWorksheetGenerator() {
     }
 
     .image-container {
-      text-align: center;
-      margin-bottom: 4px;
-      min-height: 140px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .worksheet-image {
@@ -357,7 +355,6 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       flex-direction: column;
       gap: 2px;
-      margin-top: 3px;
       padding: 0 4px;
       flex: 1;
     }
