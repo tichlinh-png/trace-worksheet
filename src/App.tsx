@@ -308,17 +308,19 @@ export default function TracingWorksheetGenerator() {
       align-items: flex-start;
       gap: 8px;
       border-bottom: 1px solid #000;
-      padding: 4px 0;
+      flex: 1;
+      padding: 0;
       margin-bottom: 0;
+      overflow: hidden;
     }
 
     .word-block:first-of-type {
-      padding-top: 4px;
+      padding-top: 0;
     }
 
     .word-block:last-child {
       border-bottom: none;
-      padding-bottom: 4px;
+      padding-bottom: 0;
     }
 
     .image-container {
@@ -350,10 +352,17 @@ export default function TracingWorksheetGenerator() {
       paint-order: stroke fill;
     }
 
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
     .tracing-lines {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 0;
       padding: 0 4px;
       flex: 1;
     }
@@ -363,15 +372,14 @@ export default function TracingWorksheetGenerator() {
       font-weight: 400;
       font-family: 'Arial', sans-serif;
       letter-spacing: 0.5px;
-      line-height: 1.8;
       color: #ddd;
       border-bottom: 1px solid #ddd;
       word-spacing: 0.3em;
-      padding-bottom: 2px;
+      padding: 0;
       flex: 1;
       display: flex;
       align-items: center;
-      min-height: 20px;
+      min-height: 0;
     }
 
 
@@ -427,10 +435,10 @@ export default function TracingWorksheetGenerator() {
 
 `;
 
-    pages.forEach((pageWords, pageIdx) => {
+    pages.forEach((pageIdx, pageIdx2) => {
       html += `<div class="page">`;
 
-      if (pageIdx === 0) {
+      if (pageIdx2 === 0) {
         html += `  <div class="page-header">
     <div class="logo-section">`;
         if (schoolLogo) {
@@ -451,7 +459,9 @@ export default function TracingWorksheetGenerator() {
   </div>`;
       }
 
-      pageWords.forEach((word, wordIdx) => {
+      html += `<div class="page-content">`;
+
+      pageIdx.forEach((word, wordIdx) => {
         html += `  <div class="word-block">
     <div class="image-container">`;
 
@@ -479,7 +489,7 @@ export default function TracingWorksheetGenerator() {
 `;
       });
 
-      html += `</div>
+      html += `</div></div>
 `;
     });
 
