@@ -486,6 +486,7 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         align-items: center;
         line-height: 1;
+        min-height: 20px;
       }
 
       .page:last-child {
@@ -906,7 +907,6 @@ export default function TracingWorksheetGenerator() {
                               fontSize: '14pt',
                               fontWeight: 400,
                               fontFamily: 'Arial, sans-serif',
-                              letterSpacing: '0.5px',
                               lineHeight: 1,
                               color: '#ddd',
                               borderBottom: '1px solid #ddd',
@@ -915,7 +915,7 @@ export default function TracingWorksheetGenerator() {
                               flex: 1,
                               display: 'flex',
                               alignItems: 'center',
-                              minHeight: 'auto'
+                              minHeight: '20px'
                             }}
                           >
                             {lineIdx === 0 ? word.text : ''}
