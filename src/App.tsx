@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import html2pdf from 'html2pdf.js';
 import { Plus, Trash2, Download, Settings, Eye, Printer } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 
@@ -22,6 +23,7 @@ export default function TracingWorksheetGenerator() {
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
@@ -577,6 +579,25 @@ export default function TracingWorksheetGenerator() {
     return html;
   };
 
+  const handleGeneratePDFPreview = () => {
+    const html = generateHTML();
+    const element = document.createElement('div');
+    element.innerHTML = html;
+
+    const opt = {
+      margin: 0,
+      filename: 'tracing-worksheet.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).toPdf().get('pdf').then((pdf) => {
+      const dataUrl = pdf.output('dataurlstring');
+      setPdfUrl(dataUrl);
+    });
+  };
+
   const handleOpenInNewTab = () => {
     const html = generateHTML();
     const blob = new Blob([html], { type: 'text/html' });
@@ -810,7 +831,12 @@ export default function TracingWorksheetGenerator() {
               <Plus className="w-5 h-5" /> Thêm
             </button>
             <button
-              onClick={() => setShowPreview(!showPreview)}
+              onClick={() => {
+                if (!showPreview) {
+                  handleGeneratePDFPreview();
+                }
+                setShowPreview(!showPreview);
+              }}
               className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition"
             >
               <Eye className="w-5 h-5" /> {showPreview ? 'Ẩn' : 'Xem'}
@@ -836,97 +862,13 @@ export default function TracingWorksheetGenerator() {
 
         {showPreview && (
           <div className="bg-white rounded-lg shadow-lg p-0 overflow-hidden">
-            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem trước ({wordsPerPage} từ/trang)</h2>
-            {Array.from({ length: totalPages }).map((_, pageIdx) => {
-              const pageWords = validWords.slice(pageIdx * wordsPerPage, (pageIdx + 1) * wordsPerPage);
-              return (
-                <div key={pageIdx} className="border border-gray-300 m-6 mt-2 bg-white" style={{width: '210mm', height: '297mm', padding: '12mm 15mm', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
-                  {pageIdx === 0 && (
-                    <div style={{display: 'grid', gridTemplateColumns: '70px 1fr', gap: '12px', marginBottom: '14px', paddingBottom: '12px', borderBottom: '2px solid #000'}}>
-                      <div style={{textAlign: 'center', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70px', fontSize: '9pt', color: '#000', background: '#fff'}}>
-                        {schoolLogo ? (
-                          <img src={schoolLogo} alt="Logo" style={{maxWidth: '100%', maxHeight: '70px', objectFit: 'contain'}} />
-                        ) : (
-                          'Logo'
-                        )}
-                      </div>
-                      <div>
-                        {schoolName && <div style={{fontSize: '14pt', fontWeight: 700, textAlign: 'center', marginBottom: '6px'}}>{schoolName}</div>}
-                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px', fontSize: '11pt', fontWeight: 600}}>
-                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
-                            <span style={{fontWeight: 700, minWidth: '50px'}}>Name:</span>
-                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
-                          </div>
-                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
-                            <span style={{fontWeight: 700, minWidth: '50px'}}>Class:</span>
-                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
-                          </div>
-                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
-                            <span style={{fontWeight: 700, minWidth: '50px'}}>Date:</span>
-                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
-                          </div>
-                          <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
-                            <span style={{fontWeight: 700, minWidth: '50px'}}>Teacher:</span>
-                            <span style={{flex: 1, borderBottom: '1px solid #000', minHeight: '16px'}}></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {pageWords.map((word, idx) => (
-                    <div key={word.id} style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', borderBottom: idx < pageWords.length - 1 ? '2px solid #000' : 'none', padding: 0}}>
-                      <div style={{textAlign: 'center', marginBottom: '8px', minHeight: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        {word.image ? (
-                          <img
-                            src={word.image}
-                            alt=""
-                            style={{maxWidth: '95%', maxHeight: '140px', objectFit: 'contain', filter: 'grayscale(100%)', border: '2px solid #000', padding: '4px', background: 'white'}}
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              fontSize: '110px',
-                              lineHeight: 1,
-                              color: '#000',
-                              WebkitTextStroke: '2px #000',
-                              textStroke: '2px #000',
-                              paintOrder: 'stroke fill'
-                            }}
-                          >
-                            {word.emoji}
-                          </div>
-                        )}
-                      </div>
-
-                      <div style={{display: 'flex', flexDirection: 'column', gap: '0px', marginTop: '0px', padding: '0 4px', flex: 1}}>
-                        {Array.from({length: lineCount}).map((_, lineIdx) => (
-                          <div
-                            key={lineIdx}
-                            style={{
-                              fontSize: '14pt',
-                              fontWeight: 400,
-                              fontFamily: 'Arial, sans-serif',
-                              lineHeight: 1,
-                              color: '#ddd',
-                              borderBottom: '1px solid #ddd',
-                              wordSpacing: '0.3em',
-                              padding: '0',
-                              flex: 1,
-                              display: 'flex',
-                              alignItems: 'center',
-                              minHeight: '20px'
-                            }}
-                          >
-                            {lineIdx === 0 ? word.text : ''}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
+            <h2 className="text-xl font-bold mb-4 p-6 pb-2">Xem PDF ({wordsPerPage} từ/trang)</h2>
+            {pdfUrl && (
+              <iframe
+                src={pdfUrl}
+                style={{width: '100%', height: '800px', border: 'none'}}
+              />
+            )}
           </div>
         )}
       </div>
