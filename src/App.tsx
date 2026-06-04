@@ -898,23 +898,24 @@ export default function TracingWorksheetGenerator() {
                         )}
                       </div>
 
-                      <div style={{display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '6px', padding: '0 6px', flex: 1}}>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '0px', marginTop: '0px', padding: '0 4px', flex: 1}}>
                         {Array.from({length: lineCount}).map((_, lineIdx) => (
                           <div
                             key={lineIdx}
                             style={{
-                              fontSize: '22pt',
-                              fontWeight: 700,
+                              fontSize: '14pt',
+                              fontWeight: 400,
                               fontFamily: 'Arial, sans-serif',
-                              letterSpacing: '1px',
-                              lineHeight: 1.6,
+                              letterSpacing: '0.5px',
+                              lineHeight: 1,
                               color: '#ddd',
                               borderBottom: '1px solid #ddd',
-                              wordSpacing: '0.35em',
-                              paddingBottom: '1px',
+                              wordSpacing: '0.3em',
+                              padding: '0',
                               flex: 1,
                               display: 'flex',
-                              alignItems: 'center'
+                              alignItems: 'center',
+                              minHeight: 'auto'
                             }}
                           >
                             {lineIdx === 0 ? word.text : ''}
