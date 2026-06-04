@@ -410,6 +410,82 @@ export default function TracingWorksheetGenerator() {
         box-sizing: border-box;
         background: white;
         box-shadow: none;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-header {
+        flex-shrink: 0;
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #000;
+      }
+
+      .page-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .word-block {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px;
+        border-bottom: 1px solid #000;
+        flex: 1;
+        padding: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+      }
+
+      .word-block:last-child {
+        border-bottom: none;
+      }
+
+      .image-container {
+        flex-shrink: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .worksheet-image {
+        max-width: 120px;
+        max-height: 100px;
+        object-fit: contain;
+      }
+
+      .emoji-placeholder {
+        font-size: 85px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .tracing-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0 4px;
+        flex: 1;
+      }
+
+      .trace-line {
+        font-size: 14pt;
+        font-weight: 400;
+        font-family: 'Arial', sans-serif;
+        color: #ddd;
+        border-bottom: 1px solid #ddd;
+        word-spacing: 0.3em;
+        padding: 0;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        line-height: 1;
       }
 
       .page:last-child {
