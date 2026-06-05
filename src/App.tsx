@@ -305,13 +305,13 @@ export default function TracingWorksheetGenerator() {
     .word-block {
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: stretch;
       gap: 8px;
       border-bottom: 1px solid #000;
       flex: 1;
       padding: 0;
       margin-bottom: 0;
-      overflow: hidden;
+      min-height: 0;
     }
 
     .word-block:first-of-type {
@@ -328,6 +328,7 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      padding: 8px 0;
     }
 
     .worksheet-image {
@@ -379,7 +380,7 @@ export default function TracingWorksheetGenerator() {
       flex: 1;
       display: flex;
       align-items: center;
-      min-height: 28px;
+      min-height: 0;
     }
 
 
@@ -434,13 +435,13 @@ export default function TracingWorksheetGenerator() {
       .word-block {
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 8px;
         border-bottom: 1px solid #000;
         flex: 1;
         padding: 0;
         margin-bottom: 0;
-        overflow: hidden;
+        min-height: 0;
       }
 
       .word-block:last-child {
@@ -450,8 +451,9 @@ export default function TracingWorksheetGenerator() {
       .image-container {
         flex-shrink: 0;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: flex-start;
+        padding: 8px 0;
       }
 
       .worksheet-image {
@@ -486,7 +488,7 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         align-items: center;
         line-height: 1;
-        min-height: 28px;
+        min-height: 0;
       }
 
       .page:last-child {
