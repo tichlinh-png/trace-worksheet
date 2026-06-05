@@ -839,13 +839,7 @@ export default function TracingWorksheetGenerator() {
             <div className="flex justify-between items-center p-6 pb-2 border-b">
               <h2 className="text-xl font-bold">Xem trước ({wordsPerPage} từ/trang)</h2>
               <button
-                onClick={() => {
-                  const html = generateHTML();
-                  const printWindow = window.open('', '_blank');
-                  printWindow.document.write(html);
-                  printWindow.document.close();
-                  printWindow.print();
-                }}
+                onClick={handlePrintPDF}
                 className="flex items-center gap-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm"
               >
                 🖨️ In PDF
