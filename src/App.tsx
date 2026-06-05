@@ -379,7 +379,7 @@ export default function TracingWorksheetGenerator() {
       flex: 1;
       display: flex;
       align-items: center;
-      min-height: 0;
+      min-height: 28px;
     }
 
 
@@ -486,7 +486,7 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         align-items: center;
         line-height: 1;
-        min-height: 20px;
+        min-height: 28px;
       }
 
       .page:last-child {
@@ -845,12 +845,14 @@ export default function TracingWorksheetGenerator() {
                 🖨️ In PDF
               </button>
             </div>
-            <iframe
-              key={words.map(w => w.text + w.emoji + (w.image ? '1' : '0')).join('|') + lineCount + repeatCount + schoolName + (schoolLogo ? '1' : '0')}
-              srcDoc={generateHTML()}
-              style={{ width: '100%', height: `${totalPages * 297 + 60}mm`, border: 'none' }}
-              title="preview"
-            />
+            <div style={{ overflowX: 'auto' }}>
+              <iframe
+                key={words.map(w => w.text + w.emoji + (w.image ? '1' : '0')).join('|') + lineCount + repeatCount + schoolName + (schoolLogo ? '1' : '0')}
+                srcDoc={generateHTML()}
+                style={{ width: '210mm', height: `${totalPages * 297 + 20}mm`, border: 'none', display: 'block' }}
+                title="preview"
+              />
+            </div>
           </div>
         )}
       </div>
