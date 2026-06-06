@@ -1,6 +1,79 @@
 import { useState, useRef, useEffect } from 'react';
-import { Plus, Trash2, Download, Settings, Eye, Printer } from 'lucide-react';
+import { Plus, Trash2, Download, Settings, Eye, Printer, Search, X } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+
+// Built-in image library: common English words with Pexels photo URLs
+const BUILTIN_IMAGES: Record<string, { url: string; label: string }> = {
+  apple: { url: 'https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Apple' },
+  banana: { url: 'https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Banana' },
+  orange: { url: 'https://images.pexels.com/photos/327098/pexels-photo-327098.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Orange' },
+  mango: { url: 'https://images.pexels.com/photos/918643/pexels-photo-918643.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Mango' },
+  grape: { url: 'https://images.pexels.com/photos/760281/pexels-photo-760281.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grape' },
+  grapes: { url: 'https://images.pexels.com/photos/760281/pexels-photo-760281.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grapes' },
+  strawberry: { url: 'https://images.pexels.com/photos/70746/strawberries-red-fruit-royalty-free-70746.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Strawberry' },
+  watermelon: { url: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Watermelon' },
+  pineapple: { url: 'https://images.pexels.com/photos/947879/pexels-photo-947879.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pineapple' },
+  lemon: { url: 'https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Lemon' },
+  cat: { url: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cat' },
+  cats: { url: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cats' },
+  dog: { url: 'https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dog' },
+  dogs: { url: 'https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dogs' },
+  bird: { url: 'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bird' },
+  birds: { url: 'https://images.pexels.com/photos/326900/pexels-photo-326900.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Birds' },
+  fish: { url: 'https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Fish' },
+  duck: { url: 'https://images.pexels.com/photos/162140/duckling-duck-bird-yellow-162140.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Duck' },
+  ducks: { url: 'https://images.pexels.com/photos/162140/duckling-duck-bird-yellow-162140.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ducks' },
+  cow: { url: 'https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cow' },
+  cows: { url: 'https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cows' },
+  horse: { url: 'https://images.pexels.com/photos/52500/horse-herd-fog-nature-52500.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Horse' },
+  pig: { url: 'https://images.pexels.com/photos/1300361/pexels-photo-1300361.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pig' },
+  rabbit: { url: 'https://images.pexels.com/photos/326012/pexels-photo-326012.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rabbit' },
+  elephant: { url: 'https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Elephant' },
+  lion: { url: 'https://images.pexels.com/photos/52500/horse-herd-fog-nature-52500.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Lion' },
+  tiger: { url: 'https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tiger' },
+  monkey: { url: 'https://images.pexels.com/photos/54203/pexels-photo-54203.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Monkey' },
+  bear: { url: 'https://images.pexels.com/photos/158109/kodiak-brown-bear-adult-portrait-wildlife-158109.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bear' },
+  frog: { url: 'https://images.pexels.com/photos/70083/frog-macro-amphibian-green-70083.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Frog' },
+  butterfly: { url: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=300', label: 'Butterfly' },
+  flower: { url: 'https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flower' },
+  flowers: { url: 'https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flowers' },
+  tree: { url: 'https://images.pexels.com/photos/624015/pexels-photo-624015.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tree' },
+  sun: { url: 'https://images.pexels.com/photos/301599/pexels-photo-301599.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Sun' },
+  moon: { url: 'https://images.pexels.com/photos/39561/solar-flare-sun-eruption-energy-39561.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Moon' },
+  star: { url: 'https://images.pexels.com/photos/1146134/pexels-photo-1146134.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Star' },
+  rain: { url: 'https://images.pexels.com/photos/125510/pexels-photo-125510.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rain' },
+  snow: { url: 'https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Snow' },
+  cloud: { url: 'https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cloud' },
+  rainbow: { url: 'https://images.pexels.com/photos/61129/pexels-photo-61129.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rainbow' },
+  house: { url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'House' },
+  car: { url: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Car' },
+  bus: { url: 'https://images.pexels.com/photos/1426516/pexels-photo-1426516.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bus' },
+  train: { url: 'https://images.pexels.com/photos/52984/pexels-photo-52984.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Train' },
+  plane: { url: 'https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Plane' },
+  boat: { url: 'https://images.pexels.com/photos/273886/pexels-photo-273886.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Boat' },
+  book: { url: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Book' },
+  ball: { url: 'https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ball' },
+  cake: { url: 'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cake' },
+  egg: { url: 'https://images.pexels.com/photos/6294248/pexels-photo-6294248.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Egg' },
+  milk: { url: 'https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Milk' },
+  bread: { url: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bread' },
+  rice: { url: 'https://images.pexels.com/photos/33783/rice-grain-white-india.jpg?auto=compress&cs=tinysrgb&w=300', label: 'Rice' },
+  carrot: { url: 'https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Carrot' },
+  corn: { url: 'https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Corn' },
+  tomato: { url: 'https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tomato' },
+  potato: { url: 'https://images.pexels.com/photos/144248/potatoes-vegetables-erdfrucht-bio-144248.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Potato' },
+  chair: { url: 'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chair' },
+  table: { url: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Table' },
+  bed: { url: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bed' },
+  door: { url: 'https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Door' },
+  pencil: { url: 'https://images.pexels.com/photos/159731/pencil-art-creative-school-159731.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pencil' },
+  school: { url: 'https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'School' },
+  clock: { url: 'https://images.pexels.com/photos/280250/pexels-photo-280250.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Clock' },
+  hat: { url: 'https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hat' },
+  bag: { url: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bag' },
+  shoe: { url: 'https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=300', label: 'Shoe' },
+  shoes: { url: 'https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=300', label: 'Shoes' },
+};
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -22,6 +95,8 @@ export default function TracingWorksheetGenerator() {
   const [lineCount, setLineCount] = useState(4);
   const [showSettings, setShowSettings] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [showBuiltinLibrary, setShowBuiltinLibrary] = useState<number | null>(null);
+  const [builtinSearch, setBuiltinSearch] = useState('');
   const fileInputRefs = useRef({});
   const logoInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
@@ -58,11 +133,14 @@ export default function TracingWorksheetGenerator() {
     setWords(words.map(w => {
       if (w.id === id) {
         const updated = { ...w, [field]: value };
-        // Auto-fill image from library when text is changed
+        // Auto-fill image from saved library or built-in library when text is changed
         if (field === 'text' && value.trim() && !updated.image) {
-          const vocabKey = `vocab_${value.toLowerCase().trim()}`;
+          const key = value.toLowerCase().trim();
+          const vocabKey = `vocab_${key}`;
           if (savedImages[vocabKey]) {
             updated.image = savedImages[vocabKey];
+          } else if (BUILTIN_IMAGES[key]) {
+            updated.image = BUILTIN_IMAGES[key].url;
           }
         }
         return updated;
@@ -748,6 +826,16 @@ export default function TracingWorksheetGenerator() {
                   >
                     📷 Ảnh
                   </button>
+                  <button
+                    onClick={() => {
+                      setShowBuiltinLibrary(showBuiltinLibrary === word.id ? null : word.id);
+                      setBuiltinSearch(word.text.toLowerCase().trim());
+                    }}
+                    className="px-3 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm"
+                    title="Kho ảnh có sẵn"
+                  >
+                    🖼 Kho ảnh
+                  </button>
                   {Object.keys(savedImages).length > 0 && (
                     <button
                       onClick={() => setShowImageLibrary(prev => ({ ...prev, [word.id]: !prev[word.id] }))}
@@ -808,6 +896,55 @@ export default function TracingWorksheetGenerator() {
                         <img src={imgData} alt="" className="w-full h-20 object-cover rounded border-2 border-blue-400" />
                       </button>
                     ))}
+                  </div>
+                )}
+
+                {showBuiltinLibrary === word.id && (
+                  <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-semibold text-emerald-800">Kho ảnh có sẵn ({Object.keys(BUILTIN_IMAGES).length} ảnh)</span>
+                      <button
+                        onClick={() => setShowBuiltinLibrary(null)}
+                        className="text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="relative mb-2">
+                      <Search className="absolute left-2 top-2 w-4 h-4 text-gray-400" />
+                      <input
+                        type="text"
+                        value={builtinSearch}
+                        onChange={(e) => setBuiltinSearch(e.target.value)}
+                        placeholder="Tìm từ (vd: cat, apple...)"
+                        className="w-full pl-7 pr-3 py-1.5 text-sm border rounded-lg focus:ring-2 focus:ring-emerald-500"
+                      />
+                    </div>
+                    <div className="grid grid-cols-5 gap-2 max-h-64 overflow-y-auto">
+                      {Object.entries(BUILTIN_IMAGES)
+                        .filter(([key, val]) =>
+                          !builtinSearch || key.includes(builtinSearch.toLowerCase()) || val.label.toLowerCase().includes(builtinSearch.toLowerCase())
+                        )
+                        .map(([key, val]) => (
+                          <button
+                            key={key}
+                            onClick={() => {
+                              updateWord(word.id, 'image', val.url);
+                              setShowBuiltinLibrary(null);
+                            }}
+                            className="flex flex-col items-center gap-1 p-1 rounded-lg hover:bg-emerald-100 border border-transparent hover:border-emerald-300 transition"
+                            title={val.label}
+                          >
+                            <img src={val.url} alt={val.label} className="w-full h-14 object-cover rounded" />
+                            <span className="text-xs text-gray-600 truncate w-full text-center">{val.label}</span>
+                          </button>
+                        ))}
+                    </div>
+                    {Object.entries(BUILTIN_IMAGES).filter(([key, val]) =>
+                      !builtinSearch || key.includes(builtinSearch.toLowerCase()) || val.label.toLowerCase().includes(builtinSearch.toLowerCase())
+                    ).length === 0 && (
+                      <p className="text-sm text-gray-500 text-center py-4">Không tìm thấy ảnh cho "{builtinSearch}"</p>
+                    )}
                   </div>
                 )}
               </div>
