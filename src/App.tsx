@@ -383,6 +383,11 @@ export default function TracingWorksheetGenerator() {
       min-height: 0;
     }
 
+    .trace-line-sample {
+      font-weight: 700;
+      color: #aaa;
+    }
+
 
     @media print {
       html {
@@ -491,6 +496,11 @@ export default function TracingWorksheetGenerator() {
         min-height: 0;
       }
 
+      .trace-line-sample {
+        font-weight: 700;
+        color: #aaa;
+      }
+
       .page:last-child {
         page-break-after: auto;
       }
@@ -556,7 +566,7 @@ export default function TracingWorksheetGenerator() {
     <div class="tracing-lines">`;
 
         for (let i = 0; i < lineCount; i++) {
-          html += '<div class="trace-line">';
+          html += `<div class="trace-line${i === 0 ? ' trace-line-sample' : ''}">`;
           if (i === 0) {
             html += word.text;
           }
