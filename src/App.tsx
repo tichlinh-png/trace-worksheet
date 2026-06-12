@@ -757,7 +757,7 @@ export default function TracingWorksheetGenerator() {
 
       .trace-line-sample {
         font-weight: 700;
-        color: #aaa;
+        color: #000;
       }
 
       .page:last-child {
