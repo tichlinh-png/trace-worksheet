@@ -461,6 +461,9 @@ export default function TracingWorksheetGenerator() {
 <head>
   <meta charset="UTF-8">
   <title>Tracing Worksheets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     @page {
       size: A4 portrait;
@@ -479,7 +482,7 @@ export default function TracingWorksheetGenerator() {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Lexend', sans-serif;
       background: white;
       color: #000;
     }
@@ -630,7 +633,7 @@ export default function TracingWorksheetGenerator() {
     .trace-line {
       font-size: 14pt;
       font-weight: 400;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Lexend', sans-serif;
       letter-spacing: 0.5px;
       color: #ddd;
       border-bottom: 1px solid #ddd;
@@ -743,7 +746,7 @@ export default function TracingWorksheetGenerator() {
       .trace-line {
         font-size: 14pt;
         font-weight: 400;
-        font-family: 'Arial', sans-serif;
+        font-family: 'Lexend', sans-serif;
         color: #ddd;
         border-bottom: 1px solid #ddd;
         word-spacing: 0.3em;
