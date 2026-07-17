@@ -251,83 +251,6 @@ const BUILTIN_IMAGES: Record<string, { url: string; label: string; category: str
   flag: { url: 'https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flag', category: 'Objects' },
   coin: { url: 'https://images.pexels.com/photos/730130/pexels-photo-730130.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Coin', category: 'Objects' },
   money: { url: 'https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Money', category: 'Objects' },
-
-  // --- COLORS ---
-  red: { url: 'https://images.pexels.com/photos/4723038/pexels-photo-4723038.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Red', category: 'Colors' },
-  blue: { url: 'https://images.pexels.com/photos/1582699/pexels-photo-1582699.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Blue', category: 'Colors' },
-  green: { url: 'https://images.pexels.com/photos/1036876/pexels-photo-1036876.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Green', category: 'Colors' },
-  yellow: { url: 'https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Yellow', category: 'Colors' },
-  orange_color: { url: 'https://images.pexels.com/photos/4870821/pexels-photo-4870821.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Orange', category: 'Colors' },
-  purple: { url: 'https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Purple', category: 'Colors' },
-  pink: { url: 'https://images.pexels.com/photos/9497631/pexels-photo-9497631.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pink', category: 'Colors' },
-  brown: { url: 'https://images.pexels.com/photos/1322186/pexels-photo-1322186.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Brown', category: 'Colors' },
-  black: { url: 'https://images.pexels.com/photos/2598684/pexels-photo-2598684.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Black', category: 'Colors' },
-  white: { url: 'https://images.pexels.com/photos/1582699/pexels-photo-1582699.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'White', category: 'Colors' },
-  gray: { url: 'https://images.pexels.com/photos/1722022/pexels-photo-1722022.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Gray', category: 'Colors' },
-  grey: { url: 'https://images.pexels.com/photos/1722022/pexels-photo-1722022.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grey', category: 'Colors' },
-
-  // --- FAMILY ---
-  family: { url: 'https://images.pexels.com/photos/1648387/pexels-photo-1648387.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Family', category: 'Family' },
-  father: { url: 'https://images.pexels.com/photos/220067/pexels-photo-220067.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Father', category: 'Family' },
-  mother: { url: 'https://images.pexels.com/photos/936043/pexels-photo-936043.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Mother', category: 'Family' },
-  parents: { url: 'https://images.pexels.com/photos/1648387/pexels-photo-1648387.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Parents', category: 'Family' },
-  brother: { url: 'https://images.pexels.com/photos/2698927/pexels-photo-2698927.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Brother', category: 'Family' },
-  sister: { url: 'https://images.pexels.com/photos/2698927/pexels-photo-2698927.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Sister', category: 'Family' },
-  baby: { url: 'https://images.pexels.com/photos/35190/img-fashion-baby-cute.jpg?auto=compress&cs=tinysrgb&w=300', label: 'Baby', category: 'Family' },
-  grandfather: { url: 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grandfather', category: 'Family' },
-  grandmother: { url: 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grandmother', category: 'Family' },
-  grandpa: { url: 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grandpa', category: 'Family' },
-  grandma: { url: 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Grandma', category: 'Family' },
-  uncle: { url: 'https://images.pexels.com/photos/1024311/pexels-photo-1024311.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Uncle', category: 'Family' },
-  aunt: { url: 'https://images.pexels.com/photos/1024311/pexels-photo-1024311.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Aunt', category: 'Family' },
-  cousin: { url: 'https://images.pexels.com/photos/1648387/pexels-photo-1648387.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cousin', category: 'Family' },
-  son: { url: 'https://images.pexels.com/photos/2698927/pexels-photo-2698927.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Son', category: 'Family' },
-  daughter: { url: 'https://images.pexels.com/photos/2698927/pexels-photo-2698927.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Daughter', category: 'Family' },
-
-  // --- ANIMALS (more wild) ---
-  panda: { url: 'https://images.pexels.com/photos/8957007/pexels-photo-8957007.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Panda', category: 'Wild Animals' },
-  kangaroo: { url: 'https://images.pexels.com/photos/4330142/pexels-photo-4330142.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Kangaroo', category: 'Wild Animals' },
-  koala: { url: 'https://images.pexels.com/photos/15645386/pexels-photo-15645386.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Koala', category: 'Wild Animals' },
-  crab: { url: 'https://images.pexels.com/photos/59054/pexels-photo-59054.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Crab', category: 'Wild Animals' },
-  octopus: { url: 'https://images.pexels.com/photos/732016/pexels-photo-732016.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Octopus', category: 'Wild Animals' },
-  seahorse: { url: 'https://images.pexels.com/photos/2897189/pexels-photo-2897189.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Seahorse', category: 'Wild Animals' },
-  jellyfish: { url: 'https://images.pexels.com/photos/6650189/pexels-photo-6650189.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Jellyfish', category: 'Wild Animals' },
-  starfish: { url: 'https://images.pexels.com/photos/732016/pexels-photo-732016.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Starfish', category: 'Wild Animals' },
-  hedgehog: { url: 'https://images.pexels.com/photos/1390742/pexels-photo-1390742.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hedgehog', category: 'Wild Animals' },
-  squirrel: { url: 'https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Squirrel', category: 'Wild Animals' },
-  camel: { url: 'https://images.pexels.com/photos/1650161/pexels-photo-1650161.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Camel', category: 'Wild Animals' },
-  hippo: { url: 'https://images.pexels.com/photos/1450403/pexels-photo-1450403.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hippo', category: 'Wild Animals' },
-  rhino: { url: 'https://images.pexels.com/photos/1011313/pexels-photo-1011313.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rhino', category: 'Wild Animals' },
-  peacock: { url: 'https://images.pexels.com/photos/163366/pexels-photo-163366.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Peacock', category: 'Wild Animals' },
-  swan: { url: 'https://images.pexels.com/photos/845730/pexels-photo-845730.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Swan', category: 'Wild Animals' },
-  flamingo: { url: 'https://images.pexels.com/photos/1580289/pexels-photo-1580289.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flamingo', category: 'Wild Animals' },
-  chameleon: { url: 'https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chameleon', category: 'Wild Animals' },
-  snail: { url: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Snail', category: 'Wild Animals' },
-  ant: { url: 'https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ant', category: 'Wild Animals' },
-  ladybug: { url: 'https://images.pexels.com/photos/59054/pexels-photo-59054.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ladybug', category: 'Wild Animals' },
-  dragonfly: { url: 'https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dragonfly', category: 'Wild Animals' },
-
-  // --- SHAPES ---
-  circle: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Circle', category: 'Shapes' },
-  square: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Square', category: 'Shapes' },
-  triangle: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Triangle', category: 'Shapes' },
-  rectangle: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rectangle', category: 'Shapes' },
-  star_shape: { url: 'https://images.pexels.com/photos/1146134/pexels-photo-1146134.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Star', category: 'Shapes' },
-  heart: { url: 'https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Heart', category: 'Shapes' },
-  diamond: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Diamond', category: 'Shapes' },
-  oval: { url: 'https://images.pexels.com/photos/2873473/pexels-photo-2873473.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Oval', category: 'Shapes' },
-
-  // --- MUSIC ---
-  guitar: { url: 'https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Guitar', category: 'Music' },
-  piano: { url: 'https://images.pexels.com/photos/164697/pexels-photo-164697.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Piano', category: 'Music' },
-  drum: { url: 'https://images.pexels.com/photos/63803/pexels-photo-63803.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Drum', category: 'Music' },
-  drums: { url: 'https://images.pexels.com/photos/63803/pexels-photo-63803.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Drums', category: 'Music' },
-  violin: { url: 'https://images.pexels.com/photos/697672/pexels-photo-697672.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Violin', category: 'Music' },
-  flute: { url: 'https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flute', category: 'Music' },
-  trumpet: { url: 'https://images.pexels.com/photos/408898/pexels-photo-408898.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Trumpet', category: 'Music' },
-  microphone: { url: 'https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Microphone', category: 'Music' },
-  music: { url: 'https://images.pexels.com/photos/164697/pexels-photo-164697.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Music', category: 'Music' },
-  song: { url: 'https://images.pexels.com/photos/164697/pexels-photo-164697.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Song', category: 'Music' },
 };
 
 const supabase = createClient(
@@ -525,7 +448,7 @@ export default function TracingWorksheetGenerator() {
     }
   }, [schoolName]);
 
-  const generateHTML = (docTitle = 'Tracing Worksheets') => {
+  const generateHTML = () => {
     const validWords = words.filter(w => w.text.trim());
     const pages = [];
 
@@ -537,7 +460,7 @@ export default function TracingWorksheetGenerator() {
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>${docTitle}</title>
+  <title>Tracing Worksheets</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -935,16 +858,8 @@ export default function TracingWorksheetGenerator() {
     window.open(url, '_blank');
   };
 
-  const getExportFilename = () => {
-    const validWords = words.filter(w => w.text.trim());
-    const wordList = validWords.map(w => w.text).join('-') || 'worksheets';
-    const now = new Date();
-    const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    return `${wordList}-${dateStr}`;
-  };
-
   const handlePrintPDF = () => {
-    const html = generateHTML(getExportFilename());
+    const html = generateHTML();
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const printWindow = window.open(url, '_blank');
