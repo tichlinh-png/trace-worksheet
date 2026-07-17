@@ -448,7 +448,15 @@ export default function TracingWorksheetGenerator() {
     }
   }, [schoolName]);
 
-  const generateHTML = () => {
+  const getExportFilename = () => {
+    const validWords = words.filter(w => w.text.trim());
+    const wordList = validWords.map(w => w.text).join('-') || 'worksheets';
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    return `${wordList}-${dateStr}`;
+  };
+
+  const generateHTML = (docTitle?: string) => {
     const validWords = words.filter(w => w.text.trim());
     const pages = [];
 
@@ -460,7 +468,7 @@ export default function TracingWorksheetGenerator() {
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Tracing Worksheets</title>
+  <title>${docTitle || 'Tracing Worksheets'}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -852,14 +860,16 @@ export default function TracingWorksheetGenerator() {
   };
 
   const handleOpenInNewTab = () => {
-    const html = generateHTML();
+    const filename = getExportFilename();
+    const html = generateHTML(filename);
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
   };
 
   const handlePrintPDF = () => {
-    const html = generateHTML();
+    const filename = getExportFilename();
+    const html = generateHTML(filename);
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const printWindow = window.open(url, '_blank');
@@ -1196,7 +1206,7 @@ export default function TracingWorksheetGenerator() {
             <div style={{ overflowX: 'auto' }}>
               <iframe
                 key={words.map(w => w.text + w.emoji + (w.image ? '1' : '0')).join('|') + lineCount + repeatCount + schoolName + (schoolLogo ? '1' : '0')}
-                srcDoc={generateHTML()}
+                srcDoc={generateHTML(getExportFilename())}
                 style={{ width: '210mm', height: `${totalPages * 297 + 20}mm`, border: 'none', display: 'block' }}
                 title="preview"
               />
