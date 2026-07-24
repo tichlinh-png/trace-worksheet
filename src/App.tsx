@@ -270,7 +270,7 @@ export default function TracingWorksheetGenerator() {
   const [savedImages, setSavedImages] = useState({});
   const [showImageLibrary, setShowImageLibrary] = useState({});
   const [repeatCount, setRepeatCount] = useState(12);
-  const [lineCount, setLineCount] = useState(4);
+  const [lineCount, setLineCount] = useState(6);
   const [showSettings, setShowSettings] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showBuiltinLibrary, setShowBuiltinLibrary] = useState<number | null>(null);
@@ -286,10 +286,11 @@ export default function TracingWorksheetGenerator() {
     const validWordsCount = words.filter(w => w.text.trim()).length;
     if (validWordsCount === 0) return 3;
     if (validWordsCount === 1) return 1;
-    if (validWordsCount === 2) return 1;
-    if (validWordsCount === 3) return 1;
+    if (validWordsCount === 2) return 2;
+    if (validWordsCount === 3) return 3;
     if (validWordsCount === 4) return 2;
-    if (validWordsCount % 2 === 0) return validWordsCount / 2;
+    if (validWordsCount % 3 === 0) return 3;
+    if (validWordsCount % 2 === 0) return 2;
     return 3;
   };
 
@@ -594,28 +595,29 @@ export default function TracingWorksheetGenerator() {
     }
 
     .image-container {
-      flex-shrink: 0;
+      flex: 1;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      padding: 8px 0;
+      justify-content: center;
+      padding: 6px;
+      max-width: 50%;
     }
 
     .worksheet-image {
-      max-width: 160px;
-      max-height: 140px;
+      max-width: 100%;
+      max-height: 180px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
     }
 
     .worksheet-image.small {
-      max-width: 130px;
-      max-height: 100px;
+      max-width: 100%;
+      max-height: 160px;
     }
 
     .emoji-placeholder {
-      font-size: 105px;
+      font-size: 120px;
       line-height: 1;
       color: #000;
       -webkit-text-stroke: 1.5px #000;
@@ -648,7 +650,7 @@ export default function TracingWorksheetGenerator() {
       border-bottom: 1px solid #ddd;
       word-spacing: 0.3em;
       padding: 0 2px;
-      height: 30px;
+      height: 26px;
       display: flex;
       align-items: center;
     }
@@ -724,21 +726,22 @@ export default function TracingWorksheetGenerator() {
       }
 
       .image-container {
-        flex-shrink: 0;
+        flex: 1;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        padding: 8px 0;
+        justify-content: center;
+        padding: 6px;
+        max-width: 50%;
       }
 
       .worksheet-image {
-        max-width: 160px;
-        max-height: 140px;
+        max-width: 100%;
+        max-height: 180px;
         object-fit: contain;
       }
 
       .emoji-placeholder {
-        font-size: 105px;
+        font-size: 120px;
         line-height: 1;
         flex-shrink: 0;
       }
@@ -760,7 +763,7 @@ export default function TracingWorksheetGenerator() {
         border-bottom: 1px solid #ddd;
         word-spacing: 0.3em;
         padding: 0 2px;
-        height: 30px;
+        height: 26px;
         display: flex;
         align-items: center;
         line-height: 1;
@@ -978,8 +981,8 @@ export default function TracingWorksheetGenerator() {
                   <label className="block text-sm font-medium mb-2">Số dòng: {lineCount}</label>
                   <input
                     type="range"
-                    min="3"
-                    max="6"
+                    min="4"
+                    max="10"
                     value={lineCount}
                     onChange={(e) => setLineCount(Number(e.target.value))}
                     className="w-full"
