@@ -648,7 +648,7 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 10px;
+      gap: 16px;
       padding: 0 4px;
       flex: 1;
     }
@@ -769,7 +769,7 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 10px;
+        gap: 16px;
         padding: 0 4px;
         flex: 1;
       }
