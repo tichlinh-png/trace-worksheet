@@ -597,15 +597,17 @@ export default function TracingWorksheetGenerator() {
     .image-container {
       flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 6px;
       max-width: 50%;
+      gap: 8px;
     }
 
     .worksheet-image {
       max-width: 100%;
-      max-height: 180px;
+      max-height: 150px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
@@ -613,16 +615,26 @@ export default function TracingWorksheetGenerator() {
 
     .worksheet-image.small {
       max-width: 100%;
-      max-height: 160px;
+      max-height: 130px;
     }
 
     .emoji-placeholder {
-      font-size: 120px;
+      font-size: 100px;
       line-height: 1;
       color: #000;
       -webkit-text-stroke: 1.5px #000;
       text-stroke: 1.5px #000;
       paint-order: stroke fill;
+    }
+
+    .sample-word {
+      font-size: 16pt;
+      font-weight: 700;
+      font-family: 'Lexend', sans-serif;
+      text-align: center;
+      color: #000;
+      letter-spacing: 0.5px;
+      padding: 2px 0;
     }
 
     .page-content {
@@ -636,7 +648,7 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 4px;
+      gap: 10px;
       padding: 0 4px;
       flex: 1;
     }
@@ -653,11 +665,6 @@ export default function TracingWorksheetGenerator() {
       height: 26px;
       display: flex;
       align-items: center;
-    }
-
-    .trace-line-sample {
-      font-weight: 700;
-      color: #000;
     }
 
 
@@ -728,29 +735,41 @@ export default function TracingWorksheetGenerator() {
       .image-container {
         flex: 1;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 6px;
         max-width: 50%;
+        gap: 8px;
       }
 
       .worksheet-image {
         max-width: 100%;
-        max-height: 180px;
+        max-height: 150px;
         object-fit: contain;
       }
 
       .emoji-placeholder {
-        font-size: 120px;
+        font-size: 100px;
         line-height: 1;
         flex-shrink: 0;
+      }
+
+      .sample-word {
+        font-size: 16pt;
+        font-weight: 700;
+        font-family: 'Lexend', sans-serif;
+        text-align: center;
+        color: #000;
+        letter-spacing: 0.5px;
+        padding: 2px 0;
       }
 
       .tracing-lines {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 4px;
+        gap: 10px;
         padding: 0 4px;
         flex: 1;
       }
@@ -767,11 +786,6 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         align-items: center;
         line-height: 1;
-      }
-
-      .trace-line-sample {
-        font-weight: 700;
-        color: #000;
       }
 
       .page:last-child {
@@ -834,16 +848,13 @@ export default function TracingWorksheetGenerator() {
           html += `<div class="emoji-placeholder">${word.emoji}</div>`;
         }
 
-        html += `</div>
+        html += `<div class="sample-word">${word.text}</div>
+  </div>
 
     <div class="tracing-lines">`;
 
-        for (let i = 0; i < lineCount; i++) {
-          html += `<div class="trace-line${i === 0 ? ' trace-line-sample' : ''}">`;
-          if (i === 0) {
-            html += word.text;
-          }
-          html += '</div>';
+        for (let i = 1; i < lineCount; i++) {
+          html += `<div class="trace-line"></div>`;
         }
 
         html += `</div>
