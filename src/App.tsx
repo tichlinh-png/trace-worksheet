@@ -602,20 +602,20 @@ export default function TracingWorksheetGenerator() {
     }
 
     .worksheet-image {
-      max-width: 120px;
-      max-height: 100px;
+      max-width: 160px;
+      max-height: 140px;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.2) brightness(1.05);
       border: 1px solid #000;
     }
 
     .worksheet-image.small {
-      max-width: 100px;
-      max-height: 70px;
+      max-width: 130px;
+      max-height: 100px;
     }
 
     .emoji-placeholder {
-      font-size: 85px;
+      font-size: 105px;
       line-height: 1;
       color: #000;
       -webkit-text-stroke: 1.5px #000;
@@ -633,7 +633,8 @@ export default function TracingWorksheetGenerator() {
     .tracing-lines {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      justify-content: center;
+      gap: 4px;
       padding: 0 4px;
       flex: 1;
     }
@@ -646,11 +647,10 @@ export default function TracingWorksheetGenerator() {
       color: #ddd;
       border-bottom: 1px solid #ddd;
       word-spacing: 0.3em;
-      padding: 0;
-      flex: 1;
+      padding: 0 2px;
+      height: 30px;
       display: flex;
       align-items: center;
-      min-height: 0;
     }
 
     .trace-line-sample {
@@ -732,13 +732,13 @@ export default function TracingWorksheetGenerator() {
       }
 
       .worksheet-image {
-        max-width: 120px;
-        max-height: 100px;
+        max-width: 160px;
+        max-height: 140px;
         object-fit: contain;
       }
 
       .emoji-placeholder {
-        font-size: 85px;
+        font-size: 105px;
         line-height: 1;
         flex-shrink: 0;
       }
@@ -746,7 +746,8 @@ export default function TracingWorksheetGenerator() {
       .tracing-lines {
         display: flex;
         flex-direction: column;
-        gap: 0;
+        justify-content: center;
+        gap: 4px;
         padding: 0 4px;
         flex: 1;
       }
@@ -758,12 +759,11 @@ export default function TracingWorksheetGenerator() {
         color: #ddd;
         border-bottom: 1px solid #ddd;
         word-spacing: 0.3em;
-        padding: 0;
-        flex: 1;
+        padding: 0 2px;
+        height: 30px;
         display: flex;
         align-items: center;
         line-height: 1;
-        min-height: 0;
       }
 
       .trace-line-sample {
