@@ -476,7 +476,7 @@ export default function TracingWorksheetGenerator() {
   <style>
     @page {
       size: A4 portrait;
-      margin: 12mm 15mm;
+      margin: 10mm 12mm;
     }
 
     * {
@@ -501,7 +501,7 @@ export default function TracingWorksheetGenerator() {
       page-break-inside: avoid;
       width: 210mm;
       height: 297mm;
-      padding: 12mm 15mm;
+      padding: 10mm 12mm;
       display: flex;
       flex-direction: column;
       background: white;
@@ -515,45 +515,49 @@ export default function TracingWorksheetGenerator() {
 
     .page-header {
       display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
+      grid-template-columns: 64px 1fr;
+      gap: 14px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
       border-bottom: 2px solid #000;
+      flex-shrink: 0;
     }
 
     .logo-section {
       text-align: center;
-      border: 2px solid #000;
+      border: 1.5px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 70px;
-      font-size: 9pt;
+      min-height: 64px;
+      font-size: 8pt;
       color: #000;
       background: #fff;
+      border-radius: 2px;
     }
 
     .logo-section img {
       max-width: 100%;
-      max-height: 70px;
+      max-height: 60px;
       object-fit: contain;
     }
 
     .header-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 16px;
-      font-size: 11pt;
+      gap: 6px 20px;
+      font-size: 10.5pt;
       font-weight: 600;
+      align-content: center;
     }
 
     .school-name {
       grid-column: 1 / -1;
-      font-size: 14pt;
+      font-size: 13pt;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
     }
 
     .header-item {
@@ -564,29 +568,29 @@ export default function TracingWorksheetGenerator() {
 
     .header-label {
       font-weight: 700;
-      min-width: 50px;
+      min-width: 48px;
     }
 
     .header-line {
       flex: 1;
       border-bottom: 1px solid #000;
-      min-height: 16px;
+      min-height: 15px;
     }
 
     .word-block {
       display: flex;
       flex-direction: row;
       align-items: stretch;
-      gap: 8px;
-      border-bottom: 1px solid #000;
+      gap: 10px;
+      border-bottom: 1px solid #333;
       flex: 1;
-      padding: 0;
+      padding: 4px 0;
       margin-bottom: 0;
       min-height: 0;
     }
 
     .word-block:first-of-type {
-      padding-top: 0;
+      padding-top: 2px;
     }
 
     .word-block:last-child {
@@ -595,31 +599,31 @@ export default function TracingWorksheetGenerator() {
     }
 
     .image-container {
-      flex: 1;
+      flex: 0 0 38%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px;
-      max-width: 50%;
-      gap: 8px;
+      padding: 4px 8px;
+      gap: 6px;
     }
 
     .worksheet-image {
       max-width: 100%;
-      max-height: 150px;
+      max-height: 130px;
       object-fit: contain;
-      filter: grayscale(100%) contrast(1.2) brightness(1.05);
-      border: 1px solid #000;
+      filter: grayscale(100%) contrast(1.15) brightness(1.05);
+      border: 1px solid #555;
+      border-radius: 2px;
     }
 
     .worksheet-image.small {
       max-width: 100%;
-      max-height: 130px;
+      max-height: 110px;
     }
 
     .emoji-placeholder {
-      font-size: 100px;
+      font-size: 90px;
       line-height: 1;
       color: #000;
       -webkit-text-stroke: 1.5px #000;
@@ -628,13 +632,14 @@ export default function TracingWorksheetGenerator() {
     }
 
     .sample-word {
-      font-size: 16pt;
+      font-size: 15pt;
       font-weight: 700;
       font-family: 'Lexend', sans-serif;
       text-align: center;
       color: #000;
       letter-spacing: 0.5px;
       padding: 2px 0;
+      line-height: 1.2;
     }
 
     .page-content {
@@ -642,6 +647,7 @@ export default function TracingWorksheetGenerator() {
       flex-direction: column;
       flex: 1;
       overflow: hidden;
+      gap: 0;
     }
 
     .tracing-lines {
@@ -649,20 +655,20 @@ export default function TracingWorksheetGenerator() {
       flex-direction: column;
       justify-content: center;
       gap: 16px;
-      padding: 0 4px;
+      padding: 4px 6px;
       flex: 1;
     }
 
     .trace-line {
-      font-size: 14pt;
+      font-size: 13.5pt;
       font-weight: 400;
       font-family: 'Lexend', sans-serif;
       letter-spacing: 0.5px;
-      color: #ddd;
-      border-bottom: 1px solid #ddd;
+      color: #ccc;
+      border-bottom: 1px dashed #bbb;
       word-spacing: 0.3em;
-      padding: 0 2px;
-      height: 26px;
+      padding: 0 4px;
+      height: 28px;
       display: flex;
       align-items: center;
     }
@@ -689,7 +695,7 @@ export default function TracingWorksheetGenerator() {
         page-break-after: always;
         page-break-inside: avoid;
         margin: 0;
-        padding: 12mm 15mm;
+        padding: 10mm 12mm;
         width: 210mm;
         height: 297mm;
         box-sizing: border-box;
@@ -702,10 +708,10 @@ export default function TracingWorksheetGenerator() {
       .page-header {
         flex-shrink: 0;
         display: grid;
-        grid-template-columns: 70px 1fr;
-        gap: 12px;
-        margin-bottom: 14px;
-        padding-bottom: 12px;
+        grid-template-columns: 64px 1fr;
+        gap: 14px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
         border-bottom: 2px solid #000;
       }
 
@@ -714,16 +720,17 @@ export default function TracingWorksheetGenerator() {
         flex-direction: column;
         flex: 1;
         overflow: hidden;
+        gap: 0;
       }
 
       .word-block {
         display: flex;
         flex-direction: row;
         align-items: stretch;
-        gap: 8px;
-        border-bottom: 1px solid #000;
+        gap: 10px;
+        border-bottom: 1px solid #333;
         flex: 1;
-        padding: 0;
+        padding: 4px 0;
         margin-bottom: 0;
         min-height: 0;
       }
@@ -733,36 +740,38 @@ export default function TracingWorksheetGenerator() {
       }
 
       .image-container {
-        flex: 1;
+        flex: 0 0 38%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 6px;
-        max-width: 50%;
-        gap: 8px;
+        padding: 4px 8px;
+        gap: 6px;
       }
 
       .worksheet-image {
         max-width: 100%;
-        max-height: 150px;
+        max-height: 130px;
         object-fit: contain;
+        border: 1px solid #555;
+        border-radius: 2px;
       }
 
       .emoji-placeholder {
-        font-size: 100px;
+        font-size: 90px;
         line-height: 1;
         flex-shrink: 0;
       }
 
       .sample-word {
-        font-size: 16pt;
+        font-size: 15pt;
         font-weight: 700;
         font-family: 'Lexend', sans-serif;
         text-align: center;
         color: #000;
         letter-spacing: 0.5px;
         padding: 2px 0;
+        line-height: 1.2;
       }
 
       .tracing-lines {
@@ -770,19 +779,19 @@ export default function TracingWorksheetGenerator() {
         flex-direction: column;
         justify-content: center;
         gap: 16px;
-        padding: 0 4px;
+        padding: 4px 6px;
         flex: 1;
       }
 
       .trace-line {
-        font-size: 14pt;
+        font-size: 13.5pt;
         font-weight: 400;
         font-family: 'Lexend', sans-serif;
-        color: #ddd;
-        border-bottom: 1px solid #ddd;
+        color: #ccc;
+        border-bottom: 1px dashed #bbb;
         word-spacing: 0.3em;
-        padding: 0 2px;
-        height: 26px;
+        padding: 0 4px;
+        height: 28px;
         display: flex;
         align-items: center;
         line-height: 1;
