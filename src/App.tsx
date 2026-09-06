@@ -251,6 +251,73 @@ const BUILTIN_IMAGES: Record<string, { url: string; label: string; category: str
   flag: { url: 'https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Flag', category: 'Objects' },
   coin: { url: 'https://images.pexels.com/photos/730130/pexels-photo-730130.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Coin', category: 'Objects' },
   money: { url: 'https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Money', category: 'Objects' },
+
+  // --- FAMILY ---
+  family: { url: 'https://images.pexels.com/photos/27177632/pexels-photo-27177632.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Family', category: 'Family' },
+  baby: { url: 'https://images.pexels.com/photos/4975472/pexels-photo-4975472.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Baby', category: 'Family' },
+  mother: { url: 'https://images.pexels.com/photos/4975472/pexels-photo-4975472.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Mother', category: 'Family' },
+  mom: { url: 'https://images.pexels.com/photos/4975472/pexels-photo-4975472.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Mom', category: 'Family' },
+  father: { url: 'https://images.pexels.com/photos/4543630/pexels-photo-4543630.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Father', category: 'Family' },
+  dad: { url: 'https://images.pexels.com/photos/4543630/pexels-photo-4543630.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dad', category: 'Family' },
+
+  // --- JOBS ---
+  doctor: { url: 'https://images.pexels.com/photos/6303591/pexels-photo-6303591.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Doctor', category: 'Jobs' },
+  nurse: { url: 'https://images.pexels.com/photos/7659868/pexels-photo-7659868.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Nurse', category: 'Jobs' },
+  teacher2: { url: 'https://images.pexels.com/photos/8460371/pexels-photo-8460371.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Teacher', category: 'Jobs' },
+  chef: { url: 'https://images.pexels.com/photos/32115905/pexels-photo-32115905.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chef', category: 'Jobs' },
+  pilot: { url: 'https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pilot', category: 'Jobs' },
+  farmer: { url: 'https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Farmer', category: 'Jobs' },
+  police: { url: 'https://images.pexels.com/photos/6520174/pexels-photo-6520174.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Police', category: 'Jobs' },
+
+  // --- MUSIC ---
+  guitar: { url: 'https://images.pexels.com/photos/8040892/pexels-photo-8040892.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Guitar', category: 'Music' },
+  piano: { url: 'https://images.pexels.com/photos/8040892/pexels-photo-8040892.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Piano', category: 'Music' },
+  drum: { url: 'https://images.pexels.com/photos/8041015/pexels-photo-8041015.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Drum', category: 'Music' },
+  drums: { url: 'https://images.pexels.com/photos/8041015/pexels-photo-8041015.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Drums', category: 'Music' },
+  trumpet: { url: 'https://images.pexels.com/photos/8044108/pexels-photo-8044108.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Trumpet', category: 'Music' },
+  music: { url: 'https://images.pexels.com/photos/6893386/pexels-photo-6893386.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Music', category: 'Music' },
+  band: { url: 'https://images.pexels.com/photos/6893386/pexels-photo-6893386.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Band', category: 'Music' },
+
+  // --- TOOLS ---
+  hammer: { url: 'https://images.pexels.com/photos/5194861/pexels-photo-5194861.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hammer', category: 'Tools' },
+  wrench: { url: 'https://images.pexels.com/photos/5194861/pexels-photo-5194861.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Wrench', category: 'Tools' },
+  screwdriver: { url: 'https://images.pexels.com/photos/19582317/pexels-photo-19582317.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Screwdriver', category: 'Tools' },
+  toolbox: { url: 'https://images.pexels.com/photos/8470252/pexels-photo-8470252.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Toolbox', category: 'Tools' },
+  tools: { url: 'https://images.pexels.com/photos/7019377/pexels-photo-7019377.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tools', category: 'Tools' },
+  pliers: { url: 'https://images.pexels.com/photos/19582317/pexels-photo-19582317.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pliers', category: 'Tools' },
+
+  // --- SHAPES ---
+  triangle: { url: 'https://images.pexels.com/photos/1340393/pexels-photo-1340393.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Triangle', category: 'Shapes' },
+  square: { url: 'https://images.pexels.com/photos/1340388/pexels-photo-1340388.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Square', category: 'Shapes' },
+  circle: { url: 'https://images.pexels.com/photos/1340392/pexels-photo-1340392.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Circle', category: 'Shapes' },
+  rectangle: { url: 'https://images.pexels.com/photos/1340389/pexels-photo-1340389.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rectangle', category: 'Shapes' },
+  diamond: { url: 'https://images.pexels.com/photos/1340389/pexels-photo-1340389.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Diamond', category: 'Shapes' },
+  oval: { url: 'https://images.pexels.com/photos/11200121/pexels-photo-11200121.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Oval', category: 'Shapes' },
+  heart: { url: 'https://images.pexels.com/photos/11200121/pexels-photo-11200121.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Heart', category: 'Shapes' },
+
+  // --- COLORS ---
+  red: { url: 'https://images.pexels.com/photos/206290/pexels-photo-206290.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Red', category: 'Colors' },
+  blue: { url: 'https://images.pexels.com/photos/206290/pexels-photo-206290.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Blue', category: 'Colors' },
+  green: { url: 'https://images.pexels.com/photos/159560/pexels-photo-159560.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Green', category: 'Colors' },
+  yellow: { url: 'https://images.pexels.com/photos/159560/pexels-photo-159560.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Yellow', category: 'Colors' },
+  orange2: { url: 'https://images.pexels.com/photos/206290/pexels-photo-206290.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Orange', category: 'Colors' },
+  purple: { url: 'https://images.pexels.com/photos/1321935/pexels-photo-1321935.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Purple', category: 'Colors' },
+  pink: { url: 'https://images.pexels.com/photos/1321935/pexels-photo-1321935.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pink', category: 'Colors' },
+  color: { url: 'https://images.pexels.com/photos/159560/pexels-photo-159560.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Color', category: 'Colors' },
+  colors: { url: 'https://images.pexels.com/photos/159560/pexels-photo-159560.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Colors', category: 'Colors' },
+
+  // --- PARTY & CELEBRATION ---
+  birthday: { url: 'https://images.pexels.com/photos/10336820/pexels-photo-10336820.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Birthday', category: 'Party' },
+  party: { url: 'https://images.pexels.com/photos/32333371/pexels-photo-32333371.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Party', category: 'Party' },
+  candle2: { url: 'https://images.pexels.com/photos/36254950/pexels-photo-36254950.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Candle', category: 'Party' },
+  celebration: { url: 'https://images.pexels.com/photos/36704186/pexels-photo-36704186.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Celebration', category: 'Party' },
+  cake2: { url: 'https://images.pexels.com/photos/10336820/pexels-photo-10336820.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cake', category: 'Party' },
+
+  // --- EMERGENCY ---
+  ambulance: { url: 'https://images.pexels.com/photos/38485120/pexels-photo-38485120.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ambulance', category: 'Emergency' },
+  firetruck: { url: 'https://images.pexels.com/photos/38485120/pexels-photo-38485120.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Fire Truck', category: 'Emergency' },
+  emergency: { url: 'https://images.pexels.com/photos/10859262/pexels-photo-10859262.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Emergency', category: 'Emergency' },
+  rescue: { url: 'https://images.pexels.com/photos/6520174/pexels-photo-6520174.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rescue', category: 'Emergency' },
 };
 
 const supabase = createClient(
@@ -523,6 +590,10 @@ export default function TracingWorksheetGenerator() {
       flex-shrink: 0;
     }
 
+    .page-header-no-logo {
+      grid-template-columns: 1fr;
+    }
+
     .logo-section {
       text-align: center;
       border: 1.5px solid #000;
@@ -715,6 +786,10 @@ export default function TracingWorksheetGenerator() {
         border-bottom: 2px solid #000;
       }
 
+      .page-header-no-logo {
+        grid-template-columns: 1fr;
+      }
+
       .page-content {
         display: flex;
         flex-direction: column;
@@ -824,15 +899,17 @@ export default function TracingWorksheetGenerator() {
       html += `<div class="page">`;
 
       if (pageIdx2 === 0) {
-        html += `  <div class="page-header">
-    <div class="logo-section">`;
         if (schoolLogo) {
-          html += `<img src="${schoolLogo}" alt="Logo">`;
+          html += `  <div class="page-header">
+    <div class="logo-section">
+      <img src="${schoolLogo}" alt="Logo">
+    </div>
+    <div>`;
         } else {
-          html += `Logo`;
+          html += `  <div class="page-header page-header-no-logo">
+    <div>`;
         }
-        html += `</div>
-    <div>
+        html += `
       ${schoolName ? `<div class="school-name">${schoolName}</div>` : ''}
       <div class="header-info">
         <div class="header-item"><span class="header-label">Name:</span><span class="header-line"></span></div>
