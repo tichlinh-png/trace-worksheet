@@ -318,6 +318,153 @@ const BUILTIN_IMAGES: Record<string, { url: string; label: string; category: str
   firetruck: { url: 'https://images.pexels.com/photos/38485120/pexels-photo-38485120.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Fire Truck', category: 'Emergency' },
   emergency: { url: 'https://images.pexels.com/photos/10859262/pexels-photo-10859262.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Emergency', category: 'Emergency' },
   rescue: { url: 'https://images.pexels.com/photos/6520174/pexels-photo-6520174.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rescue', category: 'Emergency' },
+
+  // --- FRUITS (additional) ---
+  blueberry: { url: 'https://images.pexels.com/photos/1171170/pexels-photo-1171170.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Blueberry', category: 'Fruits' },
+  papaya: { url: 'https://images.pexels.com/photos/4113820/pexels-photo-4113820.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Papaya', category: 'Fruits' },
+  dragonfruit: { url: 'https://images.pexels.com/photos/19091050/pexels-photo-19091050.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dragon Fruit', category: 'Fruits' },
+  lychee: { url: 'https://images.pexels.com/photos/6332789/pexels-photo-6332789.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Lychee', category: 'Fruits' },
+  pomegranate: { url: 'https://images.pexels.com/photos/6332789/pexels-photo-6332789.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pomegranate', category: 'Fruits' },
+  passionfruit: { url: 'https://images.pexels.com/photos/6332789/pexels-photo-6332789.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Passion Fruit', category: 'Fruits' },
+  fig: { url: 'https://images.pexels.com/photos/1171170/pexels-photo-1171170.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Fig', category: 'Fruits' },
+  plum: { url: 'https://images.pexels.com/photos/1294955/pexels-photo-1294955.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Plum', category: 'Fruits' },
+  raspberry: { url: 'https://images.pexels.com/photos/1171170/pexels-photo-1171170.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Raspberry', category: 'Fruits' },
+  blackberry: { url: 'https://images.pexels.com/photos/1171170/pexels-photo-1171170.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Blackberry', category: 'Fruits' },
+
+  // --- VEGETABLES (additional) ---
+  pepper: { url: 'https://images.pexels.com/photos/33053690/pexels-photo-33053690.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pepper', category: 'Vegetables' },
+  bellpepper: { url: 'https://images.pexels.com/photos/7456559/pexels-photo-7456559.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bell Pepper', category: 'Vegetables' },
+  zucchini: { url: 'https://images.pexels.com/photos/33053690/pexels-photo-33053690.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Zucchini', category: 'Vegetables' },
+  cauliflower: { url: 'https://images.pexels.com/photos/7456559/pexels-photo-7456559.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cauliflower', category: 'Vegetables' },
+  celery: { url: 'https://images.pexels.com/photos/5677797/pexels-photo-5677797.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Celery', category: 'Vegetables' },
+  eggplant: { url: 'https://images.pexels.com/photos/33053690/pexels-photo-33053690.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Eggplant', category: 'Vegetables' },
+  lettuce: { url: 'https://images.pexels.com/photos/36897781/pexels-photo-36897781.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Lettuce', category: 'Vegetables' },
+  spinach: { url: 'https://images.pexels.com/photos/5677797/pexels-photo-5677797.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Spinach', category: 'Vegetables' },
+  beans: { url: 'https://images.pexels.com/photos/12180690/pexels-photo-12180690.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Beans', category: 'Vegetables' },
+  peas: { url: 'https://images.pexels.com/photos/12180690/pexels-photo-12180690.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Peas', category: 'Vegetables' },
+
+  // --- WILD ANIMALS (additional) ---
+  kangaroo: { url: 'https://images.pexels.com/photos/21579888/pexels-photo-21579888.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Kangaroo', category: 'Wild Animals' },
+  koala: { url: 'https://images.pexels.com/photos/21579905/pexels-photo-21579905.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Koala', category: 'Wild Animals' },
+  panda: { url: 'https://images.pexels.com/photos/2637055/pexels-photo-2637055.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Panda', category: 'Wild Animals' },
+  hippo: { url: 'https://images.pexels.com/photos/33972781/pexels-photo-33972781.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hippo', category: 'Wild Animals' },
+  hippopotamus: { url: 'https://images.pexels.com/photos/33972781/pexels-photo-33972781.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hippopotamus', category: 'Wild Animals' },
+  dragonfly: { url: 'https://images.pexels.com/photos/9227064/pexels-photo-9227064.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dragonfly', category: 'Wild Animals' },
+  ant: { url: 'https://images.pexels.com/photos/6070870/pexels-photo-6070870.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ant', category: 'Wild Animals' },
+  ants: { url: 'https://images.pexels.com/photos/14449488/pexels-photo-14449488.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Ants', category: 'Wild Animals' },
+  crab: { url: 'https://images.pexels.com/photos/9227064/pexels-photo-9227064.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Crab', category: 'Wild Animals' },
+  seahorse: { url: 'https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Seahorse', category: 'Wild Animals' },
+
+  // --- NATURE (additional) ---
+  sunflower: { url: 'https://images.pexels.com/photos/34537615/pexels-photo-34537615.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Sunflower', category: 'Nature' },
+  daisy: { url: 'https://images.pexels.com/photos/39082984/pexels-photo-39082984.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Daisy', category: 'Nature' },
+  tulip: { url: 'https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tulip', category: 'Nature' },
+  cactus: { url: 'https://images.pexels.com/photos/1002703/pexels-photo-1002703.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cactus', category: 'Nature' },
+  waterfall: { url: 'https://images.pexels.com/photos/6102088/pexels-photo-6102088.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Waterfall', category: 'Nature' },
+  volcano: { url: 'https://images.pexels.com/photos/12088074/pexels-photo-12088074.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Volcano', category: 'Nature' },
+  canyon: { url: 'https://images.pexels.com/photos/12088074/pexels-photo-12088074.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Canyon', category: 'Nature' },
+  island: { url: 'https://images.pexels.com/photos/247600/pexels-photo-247600.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Island', category: 'Nature' },
+  cave: { url: 'https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cave', category: 'Nature' },
+  cliff: { url: 'https://images.pexels.com/photos/1586298/pexels-photo-1586298.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cliff', category: 'Nature' },
+
+  // --- TRANSPORT (additional) ---
+  van: { url: 'https://images.pexels.com/photos/1426516/pexels-photo-1426516.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Van', category: 'Transport' },
+  tractor: { url: 'https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tractor', category: 'Transport' },
+  airplane: { url: 'https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Airplane', category: 'Transport' },
+  yacht: { url: 'https://images.pexels.com/photos/15564498/pexels-photo-15564498.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Yacht', category: 'Transport' },
+  kayak: { url: 'https://images.pexels.com/photos/2404667/pexels-photo-2404667.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Kayak', category: 'Transport' },
+  canoe: { url: 'https://images.pexels.com/photos/15735086/pexels-photo-15735086.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Canoe', category: 'Transport' },
+  scooter: { url: 'https://images.pexels.com/photos/2549942/pexels-photo-2549942.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Scooter', category: 'Transport' },
+  airplane2: { url: 'https://images.pexels.com/photos/1098515/pexels-photo-1098515.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Airplane', category: 'Transport' },
+
+  // --- FOOD (additional) ---
+  donut: { url: 'https://images.pexels.com/photos/7034522/pexels-photo-7034522.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Donut', category: 'Food' },
+  donuts: { url: 'https://images.pexels.com/photos/8527207/pexels-photo-8527207.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Donuts', category: 'Food' },
+  chocolate: { url: 'https://images.pexels.com/photos/65179/pexels-photo-65179.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chocolate', category: 'Food' },
+  candy: { url: 'https://images.pexels.com/photos/7679711/pexels-photo-7679711.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Candy', category: 'Food' },
+  lollipop: { url: 'https://images.pexels.com/photos/6413384/pexels-photo-6413384.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Lollipop', category: 'Food' },
+  popcorn: { url: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Popcorn', category: 'Food' },
+  sandwich: { url: 'https://images.pexels.com/photos/1647163/pexels-photo-1647163.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Sandwich', category: 'Food' },
+  pancake: { url: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pancake', category: 'Food' },
+  waffle: { url: 'https://images.pexels.com/photos/35054722/pexels-photo-35054722.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Waffle', category: 'Food' },
+  yogurt: { url: 'https://images.pexels.com/photos/4113820/pexels-photo-4113820.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Yogurt', category: 'Food' },
+  chocolate2: { url: 'https://images.pexels.com/photos/65179/pexels-photo-65179.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chocolate Bar', category: 'Food' },
+
+  // --- CLOTHES (additional) ---
+  boots: { url: 'https://images.pexels.com/photos/33633245/pexels-photo-33633245.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Boots', category: 'Clothes' },
+  cap: { url: 'https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Cap', category: 'Clothes' },
+  beanie: { url: 'https://images.pexels.com/photos/19270858/pexels-photo-19270858.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Beanie', category: 'Clothes' },
+  tie: { url: 'https://images.pexels.com/photos/9221913/pexels-photo-9221913.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tie', category: 'Clothes' },
+  belt: { url: 'https://images.pexels.com/photos/9221913/pexels-photo-9221913.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Belt', category: 'Clothes' },
+  raincoat: { url: 'https://images.pexels.com/photos/12245254/pexels-photo-12245254.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Raincoat', category: 'Clothes' },
+  coat: { url: 'https://images.pexels.com/photos/10600330/pexels-photo-10600330.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Coat', category: 'Clothes' },
+  swimsuit: { url: 'https://images.pexels.com/photos/8527207/pexels-photo-8527207.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Swimsuit', category: 'Clothes' },
+
+  // --- HOME (additional) ---
+  bedroom: { url: 'https://images.pexels.com/photos/35142750/pexels-photo-35142750.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bedroom', category: 'Home' },
+  livingroom: { url: 'https://images.pexels.com/photos/7533841/pexels-photo-7533841.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Living Room', category: 'Home' },
+  diningroom: { url: 'https://images.pexels.com/photos/35618214/pexels-photo-35618214.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Dining Room', category: 'Home' },
+  office: { url: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Office', category: 'Home' },
+  garage: { url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Garage', category: 'Home' },
+  closet: { url: 'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Closet', category: 'Home' },
+  rug: { url: 'https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Rug', category: 'Home' },
+  shelf: { url: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Shelf', category: 'Home' },
+
+  // --- SCHOOL (additional) ---
+  crayon: { url: 'https://images.pexels.com/photos/5208679/pexels-photo-5208679.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Crayon', category: 'School' },
+  crayons: { url: 'https://images.pexels.com/photos/207665/pexels-photo-207665.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Crayons', category: 'School' },
+  paintbrush: { url: 'https://images.pexels.com/photos/207666/pexels-photo-207666.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Paint Brush', category: 'School' },
+  paint: { url: 'https://images.pexels.com/photos/5208685/pexels-photo-5208685.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Paint', category: 'School' },
+  calculator: { url: 'https://images.pexels.com/photos/7054787/pexels-photo-7054787.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Calculator', category: 'School' },
+  sharpener: { url: 'https://images.pexels.com/photos/159731/pencil-art-creative-school-159731.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Sharpener', category: 'School' },
+  stapler: { url: 'https://images.pexels.com/photos/7054787/pexels-photo-7054787.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Stapler', category: 'School' },
+  chalk: { url: 'https://images.pexels.com/photos/159560/pexels-photo-159560.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Chalk', category: 'School' },
+  board: { url: 'https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Board', category: 'School' },
+  desk: { url: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Desk', category: 'School' },
+
+  // --- BODY (additional) ---
+  tooth: { url: 'https://images.pexels.com/photos/7195433/pexels-photo-7195433.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tooth', category: 'Body' },
+  teeth: { url: 'https://images.pexels.com/photos/7195433/pexels-photo-7195433.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Teeth', category: 'Body' },
+  tongue: { url: 'https://images.pexels.com/photos/11259997/pexels-photo-11259997.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tongue', category: 'Body' },
+  finger: { url: 'https://images.pexels.com/photos/7195444/pexels-photo-7195444.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Finger', category: 'Body' },
+  fingers: { url: 'https://images.pexels.com/photos/7195444/pexels-photo-7195444.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Fingers', category: 'Body' },
+  leg: { url: 'https://images.pexels.com/photos/897817/pexels-photo-897817.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Leg', category: 'Body' },
+  arm: { url: 'https://images.pexels.com/photos/897817/pexels-photo-897817.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Arm', category: 'Body' },
+  head: { url: 'https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Head', category: 'Body' },
+  shoulder: { url: 'https://images.pexels.com/photos/897817/pexels-photo-897817.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Shoulder', category: 'Body' },
+  neck: { url: 'https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Neck', category: 'Body' },
+
+  // --- PLACES (additional) ---
+  airport: { url: 'https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Airport', category: 'Places' },
+  bridge: { url: 'https://images.pexels.com/photos/23489937/pexels-photo-23489937.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Bridge', category: 'Places' },
+  castle: { url: 'https://images.pexels.com/photos/35019288/pexels-photo-35019288.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Castle', category: 'Places' },
+  church: { url: 'https://images.pexels.com/photos/31640432/pexels-photo-31640432.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Church', category: 'Places' },
+  museum: { url: 'https://images.pexels.com/photos/5999987/pexels-photo-5999987.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Museum', category: 'Places' },
+  stadium: { url: 'https://images.pexels.com/photos/1091435/pexels-photo-1091435.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Stadium', category: 'Places' },
+  store: { url: 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Store', category: 'Places' },
+  hotel: { url: 'https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Hotel', category: 'Places' },
+  restaurant: { url: 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Restaurant', category: 'Places' },
+  factory: { url: 'https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Factory', category: 'Places' },
+
+  // --- OBJECTS (additional) ---
+  television: { url: 'https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Television', category: 'Objects' },
+  tv: { url: 'https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'TV', category: 'Objects' },
+  radio: { url: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Radio', category: 'Objects' },
+  tablet: { url: 'https://images.pexels.com/photos/30909284/pexels-photo-30909284.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Tablet', category: 'Objects' },
+  laptop: { url: 'https://images.pexels.com/photos/16171553/pexels-photo-16171553.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Laptop', category: 'Objects' },
+  keyboard: { url: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Keyboard', category: 'Objects' },
+  headphones: { url: 'https://images.pexels.com/photos/16171553/pexels-photo-16171553.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Headphones', category: 'Objects' },
+  watch: { url: 'https://images.pexels.com/photos/9221913/pexels-photo-9221913.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Watch', category: 'Objects' },
+  glasses: { url: 'https://images.pexels.com/photos/46242/lock-key-door-old-46242.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Glasses', category: 'Objects' },
+  backpack: { url: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Backpack', category: 'Objects' },
+
+  // --- KITCHEN UTENSILS (additional Objects) ---
+  pan: { url: 'https://images.pexels.com/photos/3298607/pexels-photo-3298607.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pan', category: 'Objects' },
+  pot: { url: 'https://images.pexels.com/photos/14445303/pexels-photo-14445303.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Pot', category: 'Objects' },
+  plate: { url: 'https://images.pexels.com/photos/10676874/pexels-photo-10676874.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Plate', category: 'Objects' },
+  kettle: { url: 'https://images.pexels.com/photos/9615584/pexels-photo-9615584.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Kettle', category: 'Objects' },
+  teapot: { url: 'https://images.pexels.com/photos/30617433/pexels-photo-30617433.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Teapot', category: 'Objects' },
+  mug: { url: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=300', label: 'Mug', category: 'Objects' },
 };
 
 const supabase = createClient(
