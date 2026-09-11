@@ -1049,7 +1049,7 @@ export default function TracingWorksheetGenerator() {
         if (schoolLogo) {
           html += `  <div class="page-header">
     <div class="logo-section">
-      <img src="${schoolLogo}" alt="Logo">
+      <img src="${schoolLogo}" alt="Logo" onerror="this.parentNode.style.display='none';this.parentNode.parentNode.classList.add('page-header-no-logo');">
     </div>
     <div>`;
         } else {
