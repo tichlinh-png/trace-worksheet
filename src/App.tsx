@@ -821,14 +821,18 @@ export default function TracingWorksheetGenerator() {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 4px 8px;
-      gap: 6px;
+      gap: 4px;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .worksheet-image {
+      flex: 1 1 0;
+      min-height: 0;
       max-width: 100%;
-      max-height: 130px;
+      max-height: 100%;
       object-fit: contain;
       filter: grayscale(100%) contrast(1.15) brightness(1.05);
       border: 1px solid #555;
@@ -837,10 +841,15 @@ export default function TracingWorksheetGenerator() {
 
     .worksheet-image.small {
       max-width: 100%;
-      max-height: 110px;
+      max-height: 100%;
     }
 
     .emoji-placeholder {
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 90px;
       line-height: 1;
       color: #000;
@@ -850,6 +859,7 @@ export default function TracingWorksheetGenerator() {
     }
 
     .sample-word {
+      flex-shrink: 0;
       font-size: 15pt;
       font-weight: 700;
       font-family: 'Lexend', sans-serif;
@@ -966,26 +976,35 @@ export default function TracingWorksheetGenerator() {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 4px 8px;
-        gap: 6px;
+        gap: 4px;
+        min-height: 0;
+        overflow: hidden;
       }
 
       .worksheet-image {
+        flex: 1 1 0;
+        min-height: 0;
         max-width: 100%;
-        max-height: 130px;
+        max-height: 100%;
         object-fit: contain;
         border: 1px solid #555;
         border-radius: 2px;
       }
 
       .emoji-placeholder {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 90px;
         line-height: 1;
-        flex-shrink: 0;
       }
 
       .sample-word {
+        flex-shrink: 0;
         font-size: 15pt;
         font-weight: 700;
         font-family: 'Lexend', sans-serif;
